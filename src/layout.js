@@ -7,8 +7,8 @@ class Layout extends PIXI.Container {
     mistakesLabel;
 
     invalidate() {
-        this.scoreLabel.invalidateText(`${context.score}/${context.level.size}`);
-        this.mistakesLabel.invalidateText(context.mistakes);
+        this.scoreLabel.invalidateText(`${game.score}/${game.level.size}`);
+        this.mistakesLabel.invalidateText(game.mistakes);
     }
 
 }
@@ -94,7 +94,7 @@ function initializeLayout(layout, level) {
     layout.pivot.x = layout.width / 2;
     layout.pivot.y = layout.height / 2;
 
-    const canvas = context.app.view;
+    const canvas = game.app.view;
     function resizeLayout() {
         let width = level.isLandscape ? level.layerSize.width : 2 * level.layerSize.width;
         const canvasWidth = parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);

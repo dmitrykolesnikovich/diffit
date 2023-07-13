@@ -10,7 +10,7 @@
         resizeTo: canvas,
     });
     document.body.appendChild(app.view);
-    context.app = app;
+    game.app = app;
 
     // game
     await loadFont('fonts/Filmotype_Major.otf');

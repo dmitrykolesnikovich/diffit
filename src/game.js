@@ -1,4 +1,4 @@
-const context = {
+const game = {
 
     app: null,
     level: null,
@@ -21,17 +21,17 @@ const context = {
 }
 
 async function nextLevel() {
-    context.reset();
+    game.reset();
 
     //
-    const level = await buildLevel(++context.levelId);
+    const level = await buildLevel(++game.levelId);
     const layout = await buildLayout(level);
-    context.app.stage.addChild(layout);
+    game.app.stage.addChild(layout);
     setupHitAreas(level, layout);
 
-    context.level = level;
-    context.layout = layout;
-    context.layout.invalidate()
+    game.level = level;
+    game.layout = layout;
+    game.layout.invalidate()
 }
 
 function setupHitAreas(level, layout) {
@@ -71,20 +71,20 @@ function setupSuccessAreas(layer, slots) {
 
 function failure(layer, event) {
     layer.addChild(new RedRectangle({x: event.x - 32, y: event.y - 32, width: 64, height: 64}))
-    context.mistakes++;
-    context.layout.invalidate();
+    game.mistakes++;
+    game.layout.invalidate();
 }
 
 function success(layer, slot) {
-    context.score++;
-    context.layout.invalidate();
+    game.score++;
+    game.layout.invalidate();
     for (let area of slot.areas) {
         area.addChild(new GreenRectangle(slot))
     }
 
-    console.log(`score: ${context.score} (slot: ${slot.name})`);
-    if (context.score >= context.level.size) {
-        setTimeout(async () => await win(context.level), 30);
+    console.log(`score: ${game.score} (slot: ${slot.name})`);
+    if (game.score >= game.level.size) {
+        setTimeout(async () => await win(game.level), 30);
     }
 }
 
