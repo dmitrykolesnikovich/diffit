@@ -28,20 +28,22 @@ async function sync() {
     if (game.isDirty()) {
         await play();
     } else if (game.isLevelCompleted()) {
-        await playNextLevel();
+        alert(`Ура! Уровень ${game.level.id} пройден!`);
+        await play(game.level.id + 1);
     }
+    game.layout.invalidate();
 }
 
 async function play(levelId = 1) {
     game.reset();
 
-    const level = await buildLevel(levelId);
+    const level = await buildLevel(levelId % 5);
     const layout = await buildLayout(level);
     setupHitAreas(level, layout);
 
     game.level = level;
     game.layout = layout;
-    game.app.stage.addChild(layout.invalidate());
+    game.app.stage.addChild(layout);
 }
 
 function setupHitAreas(level, layout) {
