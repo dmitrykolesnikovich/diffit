@@ -3,15 +3,11 @@ function addRoundedCornersMask(container, radius) {
     container.mask = container.addChild(mask);
 }
 
-function Area({x = 0, y = 0, width, height}) {
+function HitArea({x = 0, y = 0, width, height}) {
     const area = new PIXI.Container()
     area.interactive = true;
     area.hitArea = new PIXI.Rectangle(x, y, width, height);
     return area;
-}
-
-function RedArea({x = 0, y = 0, width, height}) {
-    return new PIXI.Graphics().beginFill(0xff0000, 0.35).drawRect(x, y, width, height).endFill()
 }
 
 function GreenRectangle({x = 0, y = 0, width, height}) {
@@ -23,7 +19,7 @@ function RedRectangle({x = 0, y = 0, width, height}) {
 }
 
 function LabelWithDescription({paddingTop, description, color}) {
-    const label = new PIXI.Text(``, {
+    const label = new PIXI.Text("", {
         fontFamily: 'Filmotype Major',
         fontSize: 44,
         fill: color,
