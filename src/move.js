@@ -1,9 +1,13 @@
 async function move() {
+    if (game.isDirty()) {
+        await loadFont('fonts/Filmotype_Major.otf');
+    }
     if (game.isLevelCompleted()) {
         alert(`Уровень ${game.level.id} пройден!`);
     }
-    if (game.isLevelCompleted() || game.isDirty()) {
+    if (game.isDirty() || game.isLevelCompleted()) {
         await setupGame();
+        game.layout.invalidate()
     }
 }
 

@@ -38,7 +38,6 @@ async function setupGame() {
 
     game.level = level;
     game.layout = layout;
-    game.layout.invalidate()
 }
 
 function setupHitAreas(level, layout) {
