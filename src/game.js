@@ -1,7 +1,6 @@
 function setupGame(level, layout) {
-    const mainView = layout.getChildAt(0);
-    const layerA = mainView.getChildAt(0);
-    const layerB = mainView.getChildAt(1);
+    const layerA = layout.layerA;
+    const layerB = layout.layerB;
 
     setupFailureArea(layerA, level)
     setupFailureArea(layerB, level)

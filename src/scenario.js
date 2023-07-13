@@ -5,8 +5,7 @@ const context = {
     levelId: 0,
     score: 0,
     mistakes: 0,
-    scoreLabel: null,
-    mistakesLabel: null,
+    layout: null,
 
     reset() {
         this.app.stage.removeChildren();
@@ -16,8 +15,7 @@ const context = {
         }
         this.score = 0;
         this.mistakes = 0;
-        this.scoreLabel = null;
-        this.mistakesLabel = null;
+        this.layout = null;
     }
 
 }
@@ -25,22 +23,24 @@ const context = {
 async function nextLevel() {
     context.reset();
     const level = await buildLevel(++context.levelId);
-    context.level = level;
     const layout = await buildLayout(level);
     context.app.stage.addChild(layout);
     setupGame(level, layout);
-    updateStatus();
+
+    context.level = level;
+    context.layout = layout;
+    layout.invalidate()
 }
 
 function miss(layer, event) {
     layer.addChild(new RedRectangle({x: event.x - 32, y: event.y - 32, width: 64, height: 64}))
     context.mistakes++;
-    updateStatus();
+    context.layout.invalidate();
 }
 
 function hit(layer, slot) {
     context.score++;
-    updateStatus();
+    context.layout.invalidate();
     for (let area of slot.areas) {
         area.addChild(new GreenRectangle(slot))
     }
@@ -54,9 +54,4 @@ function hit(layer, slot) {
 async function win(level) {
     alert(`Уровень ${level.id} пройден!`);
     await nextLevel();
-}
-
-function updateStatus() {
-    context.scoreLabel.invalidateText(`${context.score}/${context.level.size}`);
-    context.mistakesLabel.invalidateText(context.mistakes);
 }

@@ -1,19 +1,35 @@
-function buildLayout(level) {
-    // 1. mainView and layers
-    const {mainView, layerA, layerB} = buildMainViewAndLayers(level);
-    drawLayerSlots(layerA, level.slotsA);
-    drawLayerSlots(layerB, level.slotsB);
-    drawRoundedCorners(layerA, 16);
-    drawRoundedCorners(layerB, 16);
+class Layout extends PIXI.Container {
 
-    // 2. layout
-    const layout = new PIXI.Container();
+    mainView;
+    layerA;
+    layerB;
+    scoreLabel;
+    mistakesLabel;
+
+    invalidate() {
+        this.scoreLabel.invalidateText(`${context.score}/${context.level.size}`);
+        this.mistakesLabel.invalidateText(context.mistakes);
+    }
+
+}
+
+function buildLayout(level) {
+    // 1. mainView
+    const layout = new Layout();
+    const {mainView, layerA, layerB, scoreLabel, mistakesLabel} = buildMainView(level);
+    layout.mainView = mainView;
+    layout.layerA = layerA;
+    layout.layerB = layerB;
+    layout.scoreLabel = scoreLabel;
+    layout.mistakesLabel = mistakesLabel;
+
+    // 2. init
     layout.addChild(mainView);
     initializeLayout(layout, level);
     return layout;
 }
 
-function buildMainViewAndLayers(level) {
+function buildMainView(level) {
     // 1. main
     const mainView = new PIXI.Container();
     mainView.position.y = 92
@@ -22,6 +38,8 @@ function buildMainViewAndLayers(level) {
     const layerA = mainView.addChild(new PIXI.Container());
     layerA.position.set(0, 0);
     layerA.addChild(new PIXI.Sprite(level.layerImage));
+    drawLayerSlots(layerA, level.slotsA);
+    drawRoundedCorners(layerA, 16);
     {
         const x = level.isLandscape ? 0 : -4;
         const y = level.isLandscape ? -4 : 0;
@@ -31,6 +49,9 @@ function buildMainViewAndLayers(level) {
     // 3. Layer B
     const layerB = mainView.addChild(new PIXI.Container());
     layerB.addChild(new PIXI.Sprite(level.layerImage));
+    drawLayerSlots(layerB, level.slotsB);
+    drawRoundedCorners(layerB, 16);
+
     {
         const x = level.isLandscape ? 0 : level.layerSize.width + 4;
         const y = level.isLandscape ? level.layerSize.height + 4 : 0;
@@ -42,8 +63,8 @@ function buildMainViewAndLayers(level) {
     statusPanel.pivot.set(1, 1);
     statusPanel.x = mainView.width;
     statusPanel.y = mainView.height;
-    context.scoreLabel = statusPanel.addChild(LabelWithDescription({paddingTop: 64, description: `Отличий найдено: `, color: 0x22ff22}));
-    context.mistakesLabel = statusPanel.addChild(LabelWithDescription({paddingTop: 128, description: `Ошибок: `, color: 0xff2222}));
+    const scoreLabel = statusPanel.addChild(LabelWithDescription({paddingTop: 64, description: `Отличий найдено: `, color: 0x22ff22}));
+    const mistakesLabel = statusPanel.addChild(LabelWithDescription({paddingTop: 128, description: `Ошибок: `, color: 0xff2222}));
 
     // 7. title
     const titleLabel = mainView.addChild(new PIXI.Text(`Уровень ${level.id}`, {
@@ -56,7 +77,7 @@ function buildMainViewAndLayers(level) {
     titleLabel.x = mainView.width / 2;
     titleLabel.y = -64;
 
-    return {mainView, layerA, layerB};
+    return {mainView, layerA, layerB, scoreLabel, mistakesLabel};
 }
 
 function drawLayerSlots(layer, slots) {
@@ -70,8 +91,8 @@ function drawLayerSlots(layer, slots) {
 function initializeLayout(layout, level) {
     layout.pivot.x = layout.width / 2;
     layout.pivot.y = layout.height / 2;
-    const canvas = document.querySelector("#mainCanvas");
 
+    const canvas = context.app.view;
     function resizeLayout() {
         let width = level.isLandscape ? level.layerSize.width : 2 * level.layerSize.width;
         const canvasWidth = parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
@@ -84,5 +105,4 @@ function initializeLayout(layout, level) {
 
     window.addEventListener('resize', resizeLayout);
     resizeLayout();
-    return layout;
 }
