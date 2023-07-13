@@ -24,6 +24,14 @@ const game = {
 
 }
 
+async function sync() {
+    if (game.isDirty()) {
+        await play();
+    } else if (game.isLevelCompleted()) {
+        await playNextLevel();
+    }
+}
+
 async function play(levelId = 1) {
     game.reset();
 

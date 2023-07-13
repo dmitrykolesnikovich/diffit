@@ -11,15 +11,7 @@ function moveSuccess(layer, slot) {
     }
     game.layout.invalidate();
 
-    setTimeout(async () => await actions(), 30);
-}
-
-async function actions() {
-    if (game.isDirty()) {
-        await play();
-    } else if (game.isLevelCompleted()) {
-        await playNextLevel();
-    }
+    setTimeout(async () => await sync(), 30);
 }
 
 async function playNextLevel() {
