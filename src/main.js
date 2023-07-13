@@ -14,5 +14,5 @@
 
     // game
     await loadFont('fonts/Filmotype_Major.otf');
-    await nextLevel();
+    await move();
 }());

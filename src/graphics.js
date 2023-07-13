@@ -19,6 +19,7 @@ function RedRectangle({x = 0, y = 0, width, height}) {
 }
 
 function LabelWithDescription({paddingTop, description, color}) {
+    // 1. label
     const label = new PIXI.Text("", {
         fontFamily: 'Filmotype Major',
         fontSize: 44,
@@ -28,6 +29,7 @@ function LabelWithDescription({paddingTop, description, color}) {
     label.anchor.set(1, 1);
     label.y = paddingTop
 
+    // 2. description
     const descriptionLabel = label.addChild(new PIXI.Text(description, {
         fontFamily: 'Filmotype Major',
         fontSize: 44,
@@ -36,6 +38,8 @@ function LabelWithDescription({paddingTop, description, color}) {
     }));
     descriptionLabel.anchor.set(1, 1);
     descriptionLabel.position.x = -label.width;
+
+    // 3. invalidateText
     label.invalidateText = (text) => {
         label.text = text;
         descriptionLabel.position.x = -label.width;
