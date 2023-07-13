@@ -3,8 +3,8 @@ function buildLayout(level) {
     const {mainView, layerA, layerB} = buildMainViewAndLayers(level);
     drawLayerSlots(layerA, level.slotsA);
     drawLayerSlots(layerB, level.slotsB);
-    drawLayerCorners(layerA, 16);
-    drawLayerCorners(layerB, 16);
+    drawRoundedCorners(layerA, 16);
+    drawRoundedCorners(layerB, 16);
 
     // 2. layout
     const layout = new PIXI.Container();
