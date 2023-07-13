@@ -9,6 +9,7 @@ class Layout extends PIXI.Container {
     invalidate() {
         this.scoreLabel.invalidateText(`${game.score}/${game.level.size}`);
         this.mistakesLabel.invalidateText(game.mistakes);
+        return this;
     }
 
 }

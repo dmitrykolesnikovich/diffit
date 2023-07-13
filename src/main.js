@@ -14,5 +14,5 @@
     // game
     game.app = app;
     await loadGameResources();
-    await move();
+    await actions();
 }());

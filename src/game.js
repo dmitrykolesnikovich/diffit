@@ -2,42 +2,38 @@ const game = {
 
     app: null,
     level: null,
-    levelId: 0,
     layout: null,
     score: 0,
     mistakes: 0,
 
     reset() {
+        this.app.stage.removeChildren();
         this.level = null;
-        if (this.levelId >= 5) {
-            this.levelId = 0
-        }
         this.layout = null;
         this.score = 0;
         this.mistakes = 0;
     },
 
     isDirty() {
-        return this.level == null && this.levelId === 0 && this.layout == null && this.score === 0 && this.mistakes === 0;
+        return this.level == null;
     },
 
     isLevelCompleted() {
         return !this.isDirty() && this.score >= this.level.size;
-    }
+    },
 
 }
 
-async function setupGame() {
+async function play(levelId = 1) {
     game.reset();
 
-    const level = await buildLevel(++game.levelId);
+    const level = await buildLevel(levelId);
     const layout = await buildLayout(level);
-    game.app.stage.removeChildren();
-    game.app.stage.addChild(layout);
     setupHitAreas(level, layout);
 
     game.level = level;
     game.layout = layout;
+    game.app.stage.addChild(layout.invalidate());
 }
 
 function setupHitAreas(level, layout) {
@@ -56,9 +52,7 @@ function setupHitAreas(level, layout) {
 
 function setupFailureArea(layer, level) {
     const failureArea = layer.addChild(new HitArea(level.layerSize));
-    failureArea.on('click', (event) => {
-        moveSuccess(layer, layer.toLocal(event.global));
-    });
+    failureArea.on('click', (event) => moveFailure(layer, layer.toLocal(event.global)));
 }
 
 function setupSuccessAreas(layer, slots) {
@@ -68,7 +62,7 @@ function setupSuccessAreas(layer, slots) {
             if (!slot.isDone) {
                 event.stopPropagation()
                 slot.isDone = true;
-                moveFailure(layer, slot);
+                moveSuccess(layer, slot);
             }
         });
         slot.areas.push(successArea);
