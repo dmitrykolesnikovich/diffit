@@ -27,29 +27,31 @@ async function nextLevel() {
     const level = await buildLevel(++context.levelId);
     const layout = await buildLayout(level);
     context.app.stage.addChild(layout);
-    setupGame(level, layout);
+    setupHitAreas(level, layout);
 
     context.level = level;
     context.layout = layout;
     context.layout.invalidate()
 }
 
-function setupGame(level, layout) {
+function setupHitAreas(level, layout) {
     const layerA = layout.layerA;
     const layerB = layout.layerB;
+    const slotsA = level.slotsA;
+    const slotsB = level.slotsB;
 
     setupFailureArea(layerA, level)
     setupFailureArea(layerB, level)
-    setupSuccessAreas(layerA, level.slotsA);
-    setupSuccessAreas(layerA, level.slotsB);
-    setupSuccessAreas(layerB, level.slotsA);
-    setupSuccessAreas(layerB, level.slotsB);
+    setupSuccessAreas(layerA, slotsA);
+    setupSuccessAreas(layerA, slotsB);
+    setupSuccessAreas(layerB, slotsA);
+    setupSuccessAreas(layerB, slotsB);
 }
 
 function setupFailureArea(layer, level) {
     const failureArea = layer.addChild(new HitArea(level.layerSize));
     failureArea.on('click', (event) => {
-        miss(layer, layer.toLocal(event.global));
+        failure(layer, layer.toLocal(event.global));
     });
 }
 
@@ -60,21 +62,20 @@ function setupSuccessAreas(layer, slots) {
             if (!slot.isDone) {
                 event.stopPropagation()
                 slot.isDone = true;
-                hit(layer, slot);
+                success(layer, slot);
             }
         });
         slot.areas.push(successArea);
     }
-
 }
 
-function miss(layer, event) {
+function failure(layer, event) {
     layer.addChild(new RedRectangle({x: event.x - 32, y: event.y - 32, width: 64, height: 64}))
     context.mistakes++;
     context.layout.invalidate();
 }
 
-function hit(layer, slot) {
+function success(layer, slot) {
     context.score++;
     context.layout.invalidate();
     for (let area of slot.areas) {
