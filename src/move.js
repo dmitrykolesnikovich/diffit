@@ -1,7 +1,4 @@
 async function move() {
-    if (game.isDirty()) {
-        await loadFont('fonts/Filmotype_Major.otf');
-    }
     if (game.isLevelCompleted()) {
         alert(`Уровень ${game.level.id} пройден!`);
     }
