@@ -1,4 +1,4 @@
-function drawRoundedCorners(container, radius) {
+function addRoundedCornersMask(container, radius) {
     const mask = new PIXI.Graphics().beginFill(0xff0000, 1).drawRoundedRect(0, 0, container.width, container.height, radius).endFill();
     container.mask = container.addChild(mask);
 }

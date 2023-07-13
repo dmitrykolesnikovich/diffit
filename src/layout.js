@@ -40,8 +40,8 @@ function buildMainView(level) {
     const layerA = mainView.addChild(new PIXI.Container());
     layerA.position.set(0, 0);
     layerA.addChild(new PIXI.Sprite(level.layerImage));
-    drawLayerSlots(layerA, level.slotsA);
-    drawRoundedCorners(layerA, 16);
+    addSlotsToLayer(level.slotsA, layerA);
+    addRoundedCornersMask(layerA, 16);
     {
         const x = level.isLandscape ? 0 : -padding;
         const y = level.isLandscape ? -padding : 0;
@@ -51,8 +51,8 @@ function buildMainView(level) {
     // 3. Layer B
     const layerB = mainView.addChild(new PIXI.Container());
     layerB.addChild(new PIXI.Sprite(level.layerImage));
-    drawLayerSlots(layerB, level.slotsB);
-    drawRoundedCorners(layerB, 16);
+    addSlotsToLayer(level.slotsB, layerB);
+    addRoundedCornersMask(layerB, 16);
 
     {
         const x = level.isLandscape ? 0 : level.layerSize.width + padding;
@@ -82,7 +82,7 @@ function buildMainView(level) {
     return {mainView, layerA, layerB, scoreLabel, mistakesLabel};
 }
 
-function drawLayerSlots(layer, slots) {
+function addSlotsToLayer(slots, layer) {
     for (let slot of slots) {
         const sprite = new PIXI.Sprite(slot.texture);
         sprite.position.set(slot.x, slot.y);
