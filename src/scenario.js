@@ -22,6 +22,8 @@ const context = {
 
 async function nextLevel() {
     context.reset();
+
+    //
     const level = await buildLevel(++context.levelId);
     const layout = await buildLayout(level);
     context.app.stage.addChild(layout);
@@ -30,6 +32,40 @@ async function nextLevel() {
     context.level = level;
     context.layout = layout;
     context.layout.invalidate()
+}
+
+function setupGame(level, layout) {
+    const layerA = layout.layerA;
+    const layerB = layout.layerB;
+
+    setupFailureArea(layerA, level)
+    setupFailureArea(layerB, level)
+    setupSuccessAreas(layerA, level.slotsA);
+    setupSuccessAreas(layerA, level.slotsB);
+    setupSuccessAreas(layerB, level.slotsA);
+    setupSuccessAreas(layerB, level.slotsB);
+}
+
+function setupFailureArea(layer, level) {
+    const failureArea = layer.addChild(new HitArea(level.layerSize));
+    failureArea.on('click', (event) => {
+        miss(layer, layer.toLocal(event.global));
+    });
+}
+
+function setupSuccessAreas(layer, slots) {
+    for (let slot of slots) {
+        const successArea = layer.addChild(new HitArea(slot));
+        successArea.on('click', (event) => {
+            if (!slot.isDone) {
+                event.stopPropagation()
+                slot.isDone = true;
+                hit(layer, slot);
+            }
+        });
+        slot.areas.push(successArea);
+    }
+
 }
 
 function miss(layer, event) {
