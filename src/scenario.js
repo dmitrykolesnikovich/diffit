@@ -29,7 +29,7 @@ async function nextLevel() {
 
     context.level = level;
     context.layout = layout;
-    layout.invalidate()
+    context.layout.invalidate()
 }
 
 function miss(layer, event) {

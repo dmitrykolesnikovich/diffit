@@ -30,6 +30,8 @@ function buildLayout(level) {
 }
 
 function buildMainView(level) {
+    const padding = 4;
+
     // 1. main
     const mainView = new PIXI.Container();
     mainView.position.y = 92
@@ -41,8 +43,8 @@ function buildMainView(level) {
     drawLayerSlots(layerA, level.slotsA);
     drawRoundedCorners(layerA, 16);
     {
-        const x = level.isLandscape ? 0 : -4;
-        const y = level.isLandscape ? -4 : 0;
+        const x = level.isLandscape ? 0 : -padding;
+        const y = level.isLandscape ? -padding : 0;
         layerA.position.set(x, y);
     }
 
@@ -53,8 +55,8 @@ function buildMainView(level) {
     drawRoundedCorners(layerB, 16);
 
     {
-        const x = level.isLandscape ? 0 : level.layerSize.width + 4;
-        const y = level.isLandscape ? level.layerSize.height + 4 : 0;
+        const x = level.isLandscape ? 0 : level.layerSize.width + padding;
+        const y = level.isLandscape ? level.layerSize.height + padding : 0;
         layerB.position.set(x, y);
     }
 
