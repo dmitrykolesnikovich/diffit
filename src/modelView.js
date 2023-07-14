@@ -7,7 +7,6 @@ async function buildModelView(levelId) {
     const level = await loadLevel(levelId % 5);
     const model = buildModel(level);
     const view = await buildView(level);
-    setupController({model, view});
     return {model, view};
 }
 

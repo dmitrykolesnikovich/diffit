@@ -27,10 +27,5 @@ const context = {
 
 async function main() {
     await loadFont('fonts/Filmotype_Major.otf');
-
-    // modelView
-    firstLevel = bindView(firstLevel)
-    moveFailure = bindView(moveFailure)
-    moveSuccess = bindView(moveSuccess)
-    await firstLevel();
+    await setupMvc();
 }

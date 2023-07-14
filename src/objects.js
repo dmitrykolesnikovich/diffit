@@ -1,11 +1,11 @@
-function HitArea(bounds, action) {
-    const {x = 0, y = 0, width, height} = bounds
+function HitArea(target, action) {
+    const {x = 0, y = 0, width, height} = target
     const area = new PIXI.Container()
     area.interactive = true;
     area.hitArea = new PIXI.Rectangle(x, y, width, height);
     area.on('click', (event) => {
         event.stopPropagation();
-        action(bounds, event.target.parent.toLocal(event.global));
+        action({...event, target});
     });
     return area;
 }
