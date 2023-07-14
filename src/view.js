@@ -19,7 +19,9 @@ function buildView(level) {
     view.layerB = layerB;
     view.scoreLabel = scoreLabel;
     view.mistakesLabel = mistakesLabel;
-    initializeView(view, level);
+    view.pivot.x = view.width / 2;
+    view.pivot.y = view.height / 2;
+    setupViewResizeListener(context.app.view, view, level);
 
     return view;
 }
@@ -34,7 +36,7 @@ function buildMainView(level) {
     // 2. Layer A
     const layerA = mainView.addChild(new PIXI.Container());
     layerA.position.set(0, 0);
-    layerA.addChild(new PIXI.Sprite(level.layerImage));
+    layerA.addChild(new PIXI.Sprite(level.standardSlot.texture));
     for (let slot of level.slotsA) layerA.addChild(Sprite(slot));
     addRoundedCornersMask(layerA, 16);
     {
@@ -45,13 +47,13 @@ function buildMainView(level) {
 
     // 3. Layer B
     const layerB = mainView.addChild(new PIXI.Container());
-    layerB.addChild(new PIXI.Sprite(level.layerImage));
+    layerB.addChild(new PIXI.Sprite(level.standardSlot.texture));
     for (let slot of level.slotsB) layerB.addChild(Sprite(slot));
     addRoundedCornersMask(layerB, 16);
 
     {
-        const x = level.isLandscape ? 0 : level.layerSize.width + padding;
-        const y = level.isLandscape ? level.layerSize.height + padding : 0;
+        const x = level.isLandscape ? 0 : level.standardSlot.width + padding;
+        const y = level.isLandscape ? level.standardSlot.height + padding : 0;
         layerB.position.set(x, y);
     }
 
@@ -83,23 +85,4 @@ function buildMainView(level) {
     titleLabel.y = -64;
 
     return {mainView, layerA, layerB, scoreLabel, mistakesLabel};
-}
-
-function initializeView(view, level) {
-    view.pivot.x = view.width / 2;
-    view.pivot.y = view.height / 2;
-
-    const canvas = context.app.view;
-    function resizeView() {
-        let width = level.isLandscape ? level.layerSize.width : 2 * level.layerSize.width;
-        const canvasWidth = parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
-        const canvasHeight = parseFloat(canvas.style.height) + 2 * parseFloat(canvas.style.padding);
-        const scale = canvasWidth / width;
-        view.scale.set(scale * 0.77);
-        view.x = canvasWidth / 2;
-        view.y = canvasHeight / 2;
-    }
-
-    window.addEventListener('resize', resizeView);
-    resizeView();
 }

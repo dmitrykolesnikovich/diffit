@@ -12,8 +12,12 @@ class Model {
         return this.successSlots.length;
     }
 
+    get totalSlotCount() {
+        return this.level.slots.length;
+    }
+
     isLevelCompleted() {
-        return this.score >= this.level.size;
+        return this.score >= this.totalSlotCount;
     }
 
 }

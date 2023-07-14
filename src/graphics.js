@@ -3,11 +3,14 @@ function addRoundedCornersMask(container, radius) {
     container.mask = container.addChild(mask);
 }
 
-function HitArea({x = 0, y = 0, width, height, action}) {
+function HitArea({x = 0, y = 0, width, height}, action) {
     const area = new PIXI.Container()
     area.interactive = true;
     area.hitArea = new PIXI.Rectangle(x, y, width, height);
-    area.on('click', action);
+    area.on('click', (event) => {
+        event.stopPropagation();
+        action(event.target.parent.toLocal(event.global));
+    });
     return area;
 }
 
@@ -22,20 +25,14 @@ function RedRectangle({x = 0, y = 0, width, height}) {
 function LabelWithDescription({paddingTop, description, color}) {
     // 1. label
     const label = new PIXI.Text("", {
-        fontFamily: 'Filmotype Major',
-        fontSize: 44,
-        fill: color,
-        align: 'right'
+        fontFamily: 'Filmotype Major', fontSize: 44, fill: color, align: 'right'
     });
     label.anchor.set(1, 1);
     label.y = paddingTop
 
     // 2. description
     const descriptionLabel = label.addChild(new PIXI.Text(description, {
-        fontFamily: 'Filmotype Major',
-        fontSize: 44,
-        fill: 'black',
-        align: 'right'
+        fontFamily: 'Filmotype Major', fontSize: 44, fill: 'black', align: 'right'
     }));
     descriptionLabel.anchor.set(1, 1);
     descriptionLabel.position.x = -label.width;

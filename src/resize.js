@@ -1,6 +1,6 @@
 const CANVAS_RATIO = 9.0 / 16.0;
 
-function initializeCanvas(canvas) {
+function setupCanvasResizeListener(canvas) {
     function resizeCanvas() {
         // 1. actual ratio
         const emptySpace = 2 * parseInt(canvas.style.padding);
@@ -26,4 +26,19 @@ function initializeCanvas(canvas) {
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
+}
+
+function setupViewResizeListener(canvas, view, level) {
+    function resizeView() {
+        let width = level.isLandscape ? level.standardSlot.width : 2 * level.standardSlot.width;
+        const canvasWidth = parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
+        const canvasHeight = parseFloat(canvas.style.height) + 2 * parseFloat(canvas.style.padding);
+        const scale = canvasWidth / width;
+        view.scale.set(scale * 0.77);
+        view.x = canvasWidth / 2;
+        view.y = canvasHeight / 2;
+    }
+
+    window.addEventListener('resize', resizeView);
+    resizeView();
 }

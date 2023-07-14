@@ -4,7 +4,7 @@ const context = {
 
 (async function bootstrap() {
     const canvas = document.querySelector("#mainCanvas")
-    initializeCanvas(canvas);
+    setupCanvasResizeListener(canvas);
     const app = new PIXI.Application({
         background: 'white',
         antialias: true,

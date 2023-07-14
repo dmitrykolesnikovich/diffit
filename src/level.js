@@ -1,20 +1,19 @@
 class Level {
 
     id;
-    layerImage;
-    layerSize = {
-        width: 0,
-        height: 0,
-    };
-    slotsA = [];
-    slotsB = [];
+    standardSlot = null;
+    slots = [];
 
-    get isLandscape() {
-        return this.layerSize.width > this.layerSize.height;
+    get width() {
+        return this.standardSlot.width;
     }
 
-    get size() {
-        return this.slotsA.length + this.slotsB.length;
+    get height() {
+        return this.standardSlot.height;
+    }
+
+    get isLandscape() {
+        return this.width > this.height;
     }
 
 }
@@ -25,19 +24,11 @@ async function buildLevel(levelId, levelJson) {
     for (let slotJson of levelJson.slots) {
         switch (slotJson.layer) {
             case "standart": {
-                level.layerImage = await loadTexture(levelId, slotJson.name);
-                level.layerSize = {
-                    width: slotJson.width,
-                    height: slotJson.height
-                };
+                level.standardSlot = buildSlot(levelId, slotJson);
                 break;
             }
-            case "LayerA": {
-                level.slotsA.push(await buildSlot(levelId, slotJson));
-                break;
-            }
-            case "LayerB": {
-                level.slotsB.push(await buildSlot(levelId, slotJson));
+            default: {
+                level.slots.push(await buildSlot(levelId, slotJson));
                 break;
             }
         }
