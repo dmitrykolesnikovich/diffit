@@ -1,5 +1,4 @@
 (async function main() {
-    // engine
     const canvas = document.querySelector("#mainCanvas")
     initializeCanvas(canvas);
     const app = new PIXI.Application({
@@ -10,9 +9,5 @@
         resizeTo: canvas,
     });
     document.body.appendChild(app.view);
-
-    // game
-    context.app = app;
-    await loadGameResources();
-    await sync();
+    await bootstrap(app);
 }());

@@ -7,18 +7,20 @@ class Layout extends PIXI.Container {
 }
 
 function buildLayout(level) {
+    const layout = new Layout();
+
     // 1. mainView
     const {mainView, layerA, layerB, scoreLabel, mistakesLabel} = buildMainView(level);
+    layout.addChild(mainView);
 
-    // 2. layout
-    const layout = new Layout();
+    // 2. init
     layout.mainView = mainView;
     layout.layerA = layerA;
     layout.layerB = layerB;
     layout.scoreLabel = scoreLabel;
     layout.mistakesLabel = mistakesLabel;
-    layout.addChild(mainView);
     initializeLayout(layout, level);
+
     return layout;
 }
 

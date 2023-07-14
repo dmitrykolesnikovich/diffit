@@ -1,15 +1,11 @@
 class Game {
 
-    level = null;
-    layout = null;
+    level;
+    layout;
     score = 0;
     mistakes = 0;
 
-    async constructor(levelId) {
-        const level = await buildLevel(levelId % 5);
-        const layout = await buildLayout(level);
-        setupHitAreas(level, layout);
-
+    constructor(level, layout) {
         this.level = level;
         this.layout = layout;
     }
@@ -21,7 +17,10 @@ class Game {
 }
 
 async function buildGame(levelId = 1) {
-    const game = new Game(levelId);
+    const level = await buildLevel(levelId % 5);
+    const layout = await buildLayout(level);
+    setupHitAreas(level, layout);
+    const game = new Game(level, layout);
     context.app.stage.removeChildren();
     context.app.stage.addChild(game.layout)
     return game;
