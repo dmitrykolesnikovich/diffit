@@ -19,22 +19,9 @@ class Level {
 
 }
 
-class Slot {
-
-    name;
-    texture;
-    x;
-    y;
-    width;
-    height;
-
-    isDone = false;
-    areas = [];
-
-}
-
-async function buildLevel(levelJson) {
+async function buildLevel(levelId, levelJson) {
     const level = new Level();
+    level.id = levelId;
     for (let slotJson of levelJson.slots) {
         switch (slotJson.layer) {
             case "standart": {
@@ -56,15 +43,4 @@ async function buildLevel(levelJson) {
         }
     }
     return level;
-}
-
-async function buildSlot(levelId, slotJson) {
-    const slot = new Slot();
-    slot.name = slotJson.name;
-    slot.texture = await loadTexture(levelId, slotJson.name);
-    slot.x = slotJson.x;
-    slot.y = slotJson.y;
-    slot.width = slotJson.width;
-    slot.height = slotJson.height;
-    return slot;
 }

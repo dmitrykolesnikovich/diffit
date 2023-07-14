@@ -1,6 +1,6 @@
-function setupHitAreas(level, layout) {
-    const layerA = layout.layerA;
-    const layerB = layout.layerB;
+function setupController(level, view) {
+    const layerA = view.layerA;
+    const layerB = view.layerB;
     const slotsA = level.slotsA;
     const slotsB = level.slotsB;
 
@@ -28,5 +28,12 @@ function setupSuccessAreas(layer, slots) {
             }
         });
         slot.areas.push(successArea);
+    }
+}
+
+function bindModelView(updateModel) {
+    return async function (...args) {
+        await updateModel(...args);
+        await syncViewWithModel();
     }
 }

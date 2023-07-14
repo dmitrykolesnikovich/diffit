@@ -1,4 +1,8 @@
-(async function main() {
+const context = {
+    app: null
+}
+
+(async function bootstrap() {
     const canvas = document.querySelector("#mainCanvas")
     initializeCanvas(canvas);
     const app = new PIXI.Application({
@@ -9,5 +13,15 @@
         resizeTo: canvas,
     });
     document.body.appendChild(app.view);
-    await bootstrap(app);
+    context.app = app;
+    await main();
 }());
+
+async function main() {
+    nextLevel = bindModelView(nextLevel)
+    moveFailure = bindModelView(moveFailure)
+    moveSuccess = bindModelView(moveSuccess)
+
+    await loadFont('fonts/Filmotype_Major.otf');
+    await nextLevel()
+}

@@ -46,3 +46,9 @@ function LabelWithDescription({paddingTop, description, color}) {
     }
     return label;
 }
+
+function Sprite(slot) {
+    const sprite = new PIXI.Sprite(slot.texture);
+    sprite.position.set(slot.x, slot.y);
+    return sprite;
+}

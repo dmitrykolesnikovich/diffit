@@ -3,10 +3,8 @@ PIXI.Assets.init({
 });
 
 async function loadLevel(levelId) {
-    const levelJson = await PIXI.Assets.load(`levels/${levelId}/level.json`);
-    const level = buildLevel(levelJson);
-    level.id = levelId;
-    return level;
+    let levelJson = await PIXI.Assets.load(`levels/${levelId}/level.json`);
+    return buildLevel(levelId, levelJson);
 }
 
 async function loadTexture(levelId, name) {
