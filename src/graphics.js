@@ -3,10 +3,11 @@ function addRoundedCornersMask(container, radius) {
     container.mask = container.addChild(mask);
 }
 
-function HitArea({x = 0, y = 0, width, height}) {
+function HitArea({x = 0, y = 0, width, height, action}) {
     const area = new PIXI.Container()
     area.interactive = true;
     area.hitArea = new PIXI.Rectangle(x, y, width, height);
+    area.on('click', action);
     return area;
 }
 
