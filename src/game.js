@@ -17,7 +17,7 @@ class Game {
 }
 
 async function buildGame(levelId = 1) {
-    const level = await buildLevel(levelId % 5);
+    const level = await loadLevel(levelId % 5);
     const layout = await buildLayout(level);
     setupHitAreas(level, layout);
     const game = new Game(level, layout);

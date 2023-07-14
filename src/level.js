@@ -33,11 +33,8 @@ class Slot {
 
 }
 
-async function buildLevel(levelId) {
+async function buildLevel(levelJson) {
     const level = new Level();
-    level.id = levelId;
-
-    const levelJson = await PIXI.Assets.load(`levels/${levelId}/level.json`);
     for (let slotJson of levelJson.slots) {
         switch (slotJson.layer) {
             case "standart": {
@@ -58,7 +55,6 @@ async function buildLevel(levelId) {
             }
         }
     }
-
     return level;
 }
 

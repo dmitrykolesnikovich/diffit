@@ -10,7 +10,7 @@ async function bootstrap(app) {
 }
 
 async function sync() {
-    // 1. init game
+    // 1. state
     if (context.game == null) {
         context.game = await buildGame();
     } else if (context.game.isLevelCompleted()) {
@@ -18,7 +18,7 @@ async function sync() {
         context.game = await buildGame(context.game.level.id + 1);
     }
 
-    // 2. update ui
+    // 2. ui
     const {layout, level, score, mistakes} = context.game;
     layout.scoreLabel.invalidateText(`${score}/${level.size}`);
     layout.mistakesLabel.invalidateText(mistakes);
