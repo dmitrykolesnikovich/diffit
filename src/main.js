@@ -27,5 +27,5 @@ const context = {
 
 async function main() {
     await loadFont('fonts/Filmotype_Major.otf');
-    await setupMvc();
+    await setupController();
 }

@@ -1,4 +1,4 @@
-async function setupMvc() {
+async function setupController() {
     modelView = await buildModelView(1);
 
     const {model, view} = modelView;
@@ -23,6 +23,6 @@ function moveSuccess(event) {
 
 /*bindings*/
 
-setupMvc = bindView(setupMvc)
+setupController = bindView(setupController)
 moveFailure = bindView(moveFailure)
 moveSuccess = bindView(moveSuccess)
