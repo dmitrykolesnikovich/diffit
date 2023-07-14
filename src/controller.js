@@ -1,4 +1,5 @@
-function setupController() {
+function setupController(modelView) {
+    const {model, view} = modelView
     const {layerA, layerB} = view;
     const {level} = model;
     layerA.addChild(new HitArea(level, moveFailure));
@@ -11,14 +12,6 @@ function setupController() {
 
 async function firstLevel() {
     modelView = await buildModelView(1);
-}
-
-async function nextLevel() {
-    const {model} = modelView;
-    if (model.isLevelCompleted()) {
-        alert(`Ура! Уровень ${modelView.model.level.id} пройден!`);
-        modelView = await buildModelView(model.level.id + 1);
-    }
 }
 
 function moveFailure(level, event) {

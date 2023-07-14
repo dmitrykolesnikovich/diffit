@@ -26,15 +26,11 @@ const context = {
 }());
 
 async function main() {
-    // bindings
-    firstLevel = bindView(firstLevel)
-    nextLevel = bindView(nextLevel)
-    moveFailure = bindView(moveFailure)
-    moveSuccess = bindView(moveSuccess)
-
-    // resources
     await loadFont('fonts/Filmotype_Major.otf');
 
-    // bootstrap
-    await firstLevel()
+    // modelView
+    firstLevel = bindView(firstLevel)
+    moveFailure = bindView(moveFailure)
+    moveSuccess = bindView(moveSuccess)
+    await firstLevel();
 }
