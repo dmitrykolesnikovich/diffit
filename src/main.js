@@ -1,13 +1,5 @@
 const context = {
     app: null,
-    get canvasWidth() {
-        const canvas = this.app.view;
-        return parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
-    },
-    get canvasHeight() {
-        const canvas = this.app.view;
-        return parseFloat(canvas.style.height) + 2 * parseFloat(canvas.style.padding);
-    }
 };
 
 (async function bootstrap() {
