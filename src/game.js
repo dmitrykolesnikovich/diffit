@@ -1,80 +1,28 @@
-const game = {
+class Game {
 
-    app: null,
-    level: null,
-    layout: null,
-    score: 0,
-    mistakes: 0,
+    level = null;
+    layout = null;
+    score = 0;
+    mistakes = 0;
 
-    reset() {
-        this.app.stage.removeChildren();
-        this.level = null;
-        this.layout = null;
-        this.score = 0;
-        this.mistakes = 0;
-    },
+    async constructor(levelId) {
+        const level = await buildLevel(levelId % 5);
+        const layout = await buildLayout(level);
+        setupHitAreas(level, layout);
 
-    isDirty() {
-        return this.level == null;
-    },
+        this.level = level;
+        this.layout = layout;
+    }
 
     isLevelCompleted() {
-        return !this.isDirty() && this.score >= this.level.size;
-    },
-
-}
-
-async function sync() {
-    if (game.isDirty()) {
-        await play();
-    } else if (game.isLevelCompleted()) {
-        alert(`Ура! Уровень ${game.level.id} пройден!`);
-        await play(game.level.id + 1);
+        return this.score >= this.level.size;
     }
-    game.layout.invalidate();
+
 }
 
-async function play(levelId = 1) {
-    game.reset();
-
-    const level = await buildLevel(levelId % 5);
-    const layout = await buildLayout(level);
-    setupHitAreas(level, layout);
-
-    game.level = level;
-    game.layout = layout;
-    game.app.stage.addChild(layout);
-}
-
-function setupHitAreas(level, layout) {
-    const layerA = layout.layerA;
-    const layerB = layout.layerB;
-    const slotsA = level.slotsA;
-    const slotsB = level.slotsB;
-
-    setupFailureArea(layerA, level)
-    setupFailureArea(layerB, level)
-    setupSuccessAreas(layerA, slotsA);
-    setupSuccessAreas(layerA, slotsB);
-    setupSuccessAreas(layerB, slotsA);
-    setupSuccessAreas(layerB, slotsB);
-}
-
-function setupFailureArea(layer, level) {
-    const failureArea = layer.addChild(new HitArea(level.layerSize));
-    failureArea.on('click', (event) => moveFailure(layer, layer.toLocal(event.global)));
-}
-
-function setupSuccessAreas(layer, slots) {
-    for (let slot of slots) {
-        const successArea = layer.addChild(new HitArea(slot));
-        successArea.on('click', (event) => {
-            if (!slot.isDone) {
-                event.stopPropagation()
-                slot.isDone = true;
-                moveSuccess(layer, slot);
-            }
-        });
-        slot.areas.push(successArea);
-    }
+async function buildGame(levelId = 1) {
+    const game = new Game(levelId);
+    context.app.stage.removeChildren();
+    context.app.stage.addChild(game.layout)
+    return game;
 }

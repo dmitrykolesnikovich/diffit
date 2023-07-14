@@ -12,7 +12,7 @@
     document.body.appendChild(app.view);
 
     // game
-    game.app = app;
+    context.app = app;
     await loadGameResources();
     await sync();
 }());
