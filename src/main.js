@@ -26,6 +26,6 @@ async function main() {
     // load
     await loadFont('fonts/Filmotype_Major.otf');
 
-    //
+    // run
     await nextLevel()
 }
