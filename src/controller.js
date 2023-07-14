@@ -21,8 +21,7 @@ function moveSuccess(event) {
     modelView.model.successSlots.push(event.target);
 }
 
-/*bindings*/
-
+// bind
 setupController = bindView(setupController)
 moveFailure = bindView(moveFailure)
 moveSuccess = bindView(moveSuccess)
