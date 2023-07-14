@@ -31,7 +31,7 @@ function setupSuccessAreas(layer, slots) {
     }
 }
 
-function bindModelView(updateModel) {
+function bindView(updateModel) {
     return async function (...args) {
         await updateModel(...args);
         await syncViewWithModel();

@@ -18,10 +18,14 @@ const context = {
 }());
 
 async function main() {
-    nextLevel = bindModelView(nextLevel)
-    moveFailure = bindModelView(moveFailure)
-    moveSuccess = bindModelView(moveSuccess)
+    // bind
+    nextLevel = bindView(nextLevel)
+    moveFailure = bindView(moveFailure)
+    moveSuccess = bindView(moveSuccess)
 
+    // load
     await loadFont('fonts/Filmotype_Major.otf');
+
+    //
     await nextLevel()
 }
