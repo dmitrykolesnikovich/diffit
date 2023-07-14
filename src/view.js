@@ -21,7 +21,7 @@ function buildView(level) {
     view.mistakesLabel = mistakesLabel;
     view.pivot.x = view.width / 2;
     view.pivot.y = view.height / 2;
-    setupViewResizeListener(context.app.view, view, level);
+    setupViewResizeListener(view, level);
 
     return view;
 }
@@ -37,8 +37,8 @@ function buildMainView(level) {
     const layerA = mainView.addChild(new PIXI.Container());
     layerA.position.set(0, 0);
     layerA.addChild(new PIXI.Sprite(level.standardSlot.texture));
-    for (let slot of level.slotsA) layerA.addChild(Sprite(slot));
-    addRoundedCornersMask(layerA, 16);
+    for (let slot of level.slots.filter(it => it.layer === "LayerA")) layerA.addChild(Sprite(slot));
+    // layerA.mask = layerA.addChild(RoundedCornersMask(layerA, 16));
     {
         const x = level.isLandscape ? 0 : -padding;
         const y = level.isLandscape ? -padding : 0;
@@ -48,8 +48,8 @@ function buildMainView(level) {
     // 3. Layer B
     const layerB = mainView.addChild(new PIXI.Container());
     layerB.addChild(new PIXI.Sprite(level.standardSlot.texture));
-    for (let slot of level.slotsB) layerB.addChild(Sprite(slot));
-    addRoundedCornersMask(layerB, 16);
+    for (let slot of level.slots.filter(it => it.layer === "LayerB")) layerB.addChild(Sprite(slot));
+    // layerB.mask = layerB.addChild(RoundedCornersMask(layerB, 16));
 
     {
         const x = level.isLandscape ? 0 : level.standardSlot.width + padding;

@@ -5,40 +5,47 @@ let modelView = {
 
 async function buildModelView(levelId) {
     const level = await loadLevel(levelId % 5);
-    const model = buildModel(level)
+    const model = buildModel(level);
     const view = await buildView(level);
     return {model, view};
 }
 
+function bindView(updateModel) {
+    return async function (...args) {
+        await updateModel(...args);
+        await syncViewWithModel();
+    }
+}
+
 async function syncViewWithModel() {
     const {model, view} = modelView;
-    const {layerA, layerB, mainView} = view;
+    const {layerA, layerB, mainView, scoreLabel, mistakesLabel} = view;
 
     // success
-    layerA.removeChildren();
-    layerB.removeChildren();
-    for (let slot of modelView.successSlots) {
-        layerA.addChild(new GreenRectangle(slot))
-        layerB.addChild(new GreenRectangle(slot))
+    /*layerA.removeChildren();
+    layerB.removeChildren();*/
+    for (let slot of model.successSlots) {
+        layerA.addChild(new GreenRectangle(slot));
+        layerB.addChild(new GreenRectangle(slot));
     }
 
     // failure
-    mainView.removeChildren();
-    for (let failurePoint of modelView.failurePoints) {
-        mainView.addChild(new RedRectangle({x: event.x - 32, y: event.y - 32, width: 64, height: 64}))
+    for (let failurePoint of model.failurePoints) {
+        mainView.addChild(new RedRectangle({x: event.x - 32, y: event.y - 32, width: 64, height: 64}));
     }
 
     // status
-    view.scoreLabel.invalidateText(`${model.score}/${model.totalSlotCount}`);
-    view.mistakesLabel.invalidateText(model.mistakesCount);
+    scoreLabel.invalidateText(`${model.score}/${model.totalSlotCount}`);
+    mistakesLabel.invalidateText(model.mistakesCount);
 
     // next
-    if (context.app.stage.getChildAt(0) !== view) {
+    /*if (context.app.stage.getChildAt(0) !== view) {
         context.app.stage.removeChildren();
-        context.app.stage.addChild(view)
+        context.app.stage.addChild(view);
     } else {
         await nextLevel();
-    }
+    }*/
+    context.app.stage.addChild(view);
 }
 
 /*actions*/
@@ -51,19 +58,21 @@ async function nextLevel() {
         modelView = await buildModelView(modelView.model.level.id + 1);
     }
 
-    const {layerA, layerB} = view
+    /*const {model, view} = modelView;
+    const {layerA, layerB} = view;
+    const {level} = model;
     layerA.addChild(new HitArea(level, moveFailure));
     layerB.addChild(new HitArea(level, moveFailure));
     for (let slot of level.slots) {
-        layerA.addChild(new HitArea(level, moveSuccess));
-        layerB.addChild(new HitArea(level, moveSuccess));
-    }
+        layerA.addChild(new HitArea(slot, moveSuccess));
+        layerB.addChild(new HitArea(slot, moveSuccess));
+    }*/
 }
 
 function moveFailure(layer, event) {
-    modelView.model.failurePoints.push(event)
+    modelView.model.failurePoints.push(event);
 }
 
 function moveSuccess(layer, slot) {
-    modelView.model.successSlots.push(slot)
+    modelView.model.successSlots.push(slot);
 }

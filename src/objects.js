@@ -1,8 +1,3 @@
-function addRoundedCornersMask(container, radius) {
-    const mask = new PIXI.Graphics().beginFill(0xff0000, 1).drawRoundedRect(0, 0, container.width, container.height, radius).endFill();
-    container.mask = container.addChild(mask);
-}
-
 function HitArea({x = 0, y = 0, width, height}, action) {
     const area = new PIXI.Container()
     area.interactive = true;
@@ -49,4 +44,8 @@ function Sprite(slot) {
     const sprite = new PIXI.Sprite(slot.texture);
     sprite.position.set(slot.x, slot.y);
     return sprite;
+}
+
+function RoundedCornersMask({width, height}, radius) {
+    return new PIXI.Graphics().beginFill(0xff0000, 1).drawRoundedRect(0, 0, 100, 100, radius).endFill();
 }

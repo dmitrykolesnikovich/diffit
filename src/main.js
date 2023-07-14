@@ -1,6 +1,14 @@
 const context = {
-    app: null
-}
+    app: null,
+    get canvasWidth() {
+        const canvas = this.app.view;
+        return parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
+    },
+    get canvasHeight() {
+        const canvas = this.app.view;
+        return parseFloat(canvas.style.height) + 2 * parseFloat(canvas.style.padding);
+    }
+};
 
 (async function bootstrap() {
     const canvas = document.querySelector("#mainCanvas")
@@ -18,14 +26,14 @@ const context = {
 }());
 
 async function main() {
-    // bind
+    // bindings
     nextLevel = bindView(nextLevel)
     moveFailure = bindView(moveFailure)
     moveSuccess = bindView(moveSuccess)
 
-    // load
+    // resources
     await loadFont('fonts/Filmotype_Major.otf');
 
-    // run
+    // first level
     await nextLevel()
 }

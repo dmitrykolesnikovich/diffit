@@ -28,15 +28,13 @@ function setupCanvasResizeListener(canvas) {
     resizeCanvas();
 }
 
-function setupViewResizeListener(canvas, view, level) {
+function setupViewResizeListener(view, level) {
     function resizeView() {
-        let width = level.isLandscape ? level.standardSlot.width : 2 * level.standardSlot.width;
-        const canvasWidth = parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
-        const canvasHeight = parseFloat(canvas.style.height) + 2 * parseFloat(canvas.style.padding);
-        const scale = canvasWidth / width;
+        const width = level.isLandscape ? level.width : 2 * level.width;
+        const scale = context.canvasWidth / width;
         view.scale.set(scale * 0.77);
-        view.x = canvasWidth / 2;
-        view.y = canvasHeight / 2;
+        view.x = context.canvasWidth / 2;
+        view.y = context.canvasHeight / 2;
     }
 
     window.addEventListener('resize', resizeView);

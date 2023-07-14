@@ -14,10 +14,3 @@ async function loadTexture(levelId, name) {
 async function loadFont(path) {
     await PIXI.Assets.load(path);
 }
-
-function bindView(updateModel) {
-    return async function (...args) {
-        await updateModel(...args);
-        await syncViewWithModel();
-    }
-}
