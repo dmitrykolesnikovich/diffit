@@ -1,10 +1,11 @@
-function HitArea({x = 0, y = 0, width, height}, action) {
+function HitArea(bounds, action) {
+    const {x = 0, y = 0, width, height} = bounds
     const area = new PIXI.Container()
     area.interactive = true;
     area.hitArea = new PIXI.Rectangle(x, y, width, height);
     area.on('click', (event) => {
         event.stopPropagation();
-        action(event.target.parent.toLocal(event.global));
+        action(bounds, event.target.parent.toLocal(event.global));
     });
     return area;
 }
@@ -47,5 +48,5 @@ function Sprite(slot) {
 }
 
 function RoundedCornersMask({width, height}, radius) {
-    return new PIXI.Graphics().beginFill(0xff0000, 1).drawRoundedRect(0, 0, 100, 100, radius).endFill();
+    return new PIXI.Graphics().beginFill(0xff0000, 1).drawRoundedRect(0, 0, width, height, radius).endFill();
 }

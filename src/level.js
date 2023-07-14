@@ -24,7 +24,7 @@ async function buildLevel(levelId, levelJson) {
     for (let slotJson of levelJson.slots) {
         switch (slotJson.layer) {
             case "standart": {
-                level.standardSlot = buildSlot(levelId, slotJson);
+                level.standardSlot = await buildSlot(levelId, slotJson);
                 break;
             }
             default: {

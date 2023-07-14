@@ -4,13 +4,15 @@ class View extends PIXI.Container {
     layerB;
     scoreLabel;
     mistakesLabel;
+    successA;
+    successB;
 }
 
 function buildView(level) {
     const view = new View();
 
     // 1. mainView
-    const {mainView, layerA, layerB, scoreLabel, mistakesLabel} = buildMainView(level);
+    const {mainView, layerA, layerB, scoreLabel, mistakesLabel, successA, successB} = buildMainView(level);
     view.addChild(mainView);
 
     // 2. init
@@ -19,6 +21,8 @@ function buildView(level) {
     view.layerB = layerB;
     view.scoreLabel = scoreLabel;
     view.mistakesLabel = mistakesLabel;
+    view.successA = successA;
+    view.successB = successB;
     view.pivot.x = view.width / 2;
     view.pivot.y = view.height / 2;
     setupViewResizeListener(view, level);
@@ -38,7 +42,8 @@ function buildMainView(level) {
     layerA.position.set(0, 0);
     layerA.addChild(new PIXI.Sprite(level.standardSlot.texture));
     for (let slot of level.slots.filter(it => it.layer === "LayerA")) layerA.addChild(Sprite(slot));
-    // layerA.mask = layerA.addChild(RoundedCornersMask(layerA, 16));
+    layerA.mask = layerA.addChild(RoundedCornersMask(layerA, 16));
+    const successA = layerA.addChild(new PIXI.Container());
     {
         const x = level.isLandscape ? 0 : -padding;
         const y = level.isLandscape ? -padding : 0;
@@ -49,8 +54,8 @@ function buildMainView(level) {
     const layerB = mainView.addChild(new PIXI.Container());
     layerB.addChild(new PIXI.Sprite(level.standardSlot.texture));
     for (let slot of level.slots.filter(it => it.layer === "LayerB")) layerB.addChild(Sprite(slot));
-    // layerB.mask = layerB.addChild(RoundedCornersMask(layerB, 16));
-
+    layerB.mask = layerB.addChild(RoundedCornersMask(layerB, 16));
+    const successB = layerB.addChild(new PIXI.Container());
     {
         const x = level.isLandscape ? 0 : level.standardSlot.width + padding;
         const y = level.isLandscape ? level.standardSlot.height + padding : 0;
@@ -84,5 +89,5 @@ function buildMainView(level) {
     titleLabel.x = mainView.width / 2;
     titleLabel.y = -64;
 
-    return {mainView, layerA, layerB, scoreLabel, mistakesLabel};
+    return {mainView, layerA, layerB, scoreLabel, mistakesLabel, successA, successB};
 }

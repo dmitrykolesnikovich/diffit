@@ -27,6 +27,7 @@ const context = {
 
 async function main() {
     // bindings
+    firstLevel = bindView(firstLevel)
     nextLevel = bindView(nextLevel)
     moveFailure = bindView(moveFailure)
     moveSuccess = bindView(moveSuccess)
@@ -34,6 +35,6 @@ async function main() {
     // resources
     await loadFont('fonts/Filmotype_Major.otf');
 
-    // first level
-    await nextLevel()
+    // run
+    await firstLevel()
 }

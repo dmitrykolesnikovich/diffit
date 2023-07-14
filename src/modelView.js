@@ -1,7 +1,7 @@
 let modelView = {
     model: null,
     view: null,
-}
+};
 
 async function buildModelView(levelId) {
     const level = await loadLevel(levelId % 5);
@@ -13,20 +13,20 @@ async function buildModelView(levelId) {
 function bindView(updateModel) {
     return async function (...args) {
         await updateModel(...args);
-        await syncViewWithModel();
+        await updateView();
     }
 }
 
-async function syncViewWithModel() {
+async function updateView() {
     const {model, view} = modelView;
-    const {layerA, layerB, mainView, scoreLabel, mistakesLabel} = view;
+    const {successA, successB, mainView, scoreLabel, mistakesLabel} = view;
 
     // success
-    /*layerA.removeChildren();
-    layerB.removeChildren();*/
+    successA.removeChildren();
+    successB.removeChildren();
     for (let slot of model.successSlots) {
-        layerA.addChild(new GreenRectangle(slot));
-        layerB.addChild(new GreenRectangle(slot));
+        successA.addChild(new GreenRectangle(slot));
+        successB.addChild(new GreenRectangle(slot));
     }
 
     // failure
@@ -46,33 +46,4 @@ async function syncViewWithModel() {
         await nextLevel();
     }*/
     context.app.stage.addChild(view);
-}
-
-/*actions*/
-
-async function nextLevel() {
-    if (modelView.model == null) {
-        modelView = await buildModelView(1);
-    } else if (modelView.model.isLevelCompleted()) {
-        alert(`Ура! Уровень ${modelView.model.level.id} пройден!`);
-        modelView = await buildModelView(modelView.model.level.id + 1);
-    }
-
-    /*const {model, view} = modelView;
-    const {layerA, layerB} = view;
-    const {level} = model;
-    layerA.addChild(new HitArea(level, moveFailure));
-    layerB.addChild(new HitArea(level, moveFailure));
-    for (let slot of level.slots) {
-        layerA.addChild(new HitArea(slot, moveSuccess));
-        layerB.addChild(new HitArea(slot, moveSuccess));
-    }*/
-}
-
-function moveFailure(layer, event) {
-    modelView.model.failurePoints.push(event);
-}
-
-function moveSuccess(layer, slot) {
-    modelView.model.successSlots.push(slot);
 }
