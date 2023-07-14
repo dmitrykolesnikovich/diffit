@@ -11,9 +11,12 @@ class View extends PIXI.Container {
 function buildView(level) {
     const view = new View();
 
-    // 1. mainView
-    const {mainView, layerA, layerB, scoreLabel, mistakesLabel, successA, successB} = buildMainView(level);
+    // 1. layout
+    const {mainView, layerA, layerB, scoreLabel, mistakesLabel, successA, successB} = layout(level);
     view.addChild(mainView);
+    view.pivot.x = view.width / 2;
+    view.pivot.y = view.height / 2;
+    setupViewResizeListener(view, level);
 
     // 2. init
     view.mainView = mainView;
@@ -23,14 +26,10 @@ function buildView(level) {
     view.mistakesLabel = mistakesLabel;
     view.successA = successA;
     view.successB = successB;
-    view.pivot.x = view.width / 2;
-    view.pivot.y = view.height / 2;
-    setupViewResizeListener(view, level);
-
     return view;
 }
 
-function buildMainView(level) {
+function layout(level) {
     const padding = 4;
 
     // 1. main

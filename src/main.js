@@ -35,6 +35,6 @@ async function main() {
     // resources
     await loadFont('fonts/Filmotype_Major.otf');
 
-    // run
+    // bootstrap
     await firstLevel()
 }
