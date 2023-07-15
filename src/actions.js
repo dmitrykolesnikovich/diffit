@@ -23,5 +23,6 @@ function moveSuccess(event) {
 /*bind actions*/
 
 firstLevel = bindViewModel(firstLevel)
+nextLevel = bindViewModel(nextLevel)
 moveFailure = bindViewModel(moveFailure)
 moveSuccess = bindViewModel(moveSuccess)
