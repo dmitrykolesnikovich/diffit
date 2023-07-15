@@ -26,7 +26,7 @@ async function setupViewModel({model, view}) {
 
     // failure
     for (let failurePoint of model.failurePoints) {
-        failures.addChild(new RedRectangle({x: failurePoint.x - 32, y: failurePoint.y - 32, width: 64, height: 64}));
+        failures.addChild(new RedCross(failurePoint));
     }
 
     // status

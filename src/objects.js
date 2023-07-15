@@ -37,8 +37,8 @@ function LabelWithDescription({paddingTop, description, color}) {
     return label;
 }
 
-function RedRectangle({x = 0, y = 0, width, height}) {
-    return new PIXI.Graphics().lineStyle(4, 0xff2222, 1).drawRect(x, y, width, height);
+function RedCross(point) {
+    return new PIXI.Graphics().lineStyle(4, 0xff2222, 1).drawRect(point.x - 32, point.y - 32, 64, 64);
 }
 
 function RoundedCornersMask({width, height}, radius) {
