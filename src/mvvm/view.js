@@ -9,7 +9,7 @@ class View extends PIXI.Container {
 
 function buildView(level) {
     const view = new View();
-    const {layerA, layerB, successA, successB, scoreLabel, mistakesLabel} = layout(view, level);
+    const {layerA, layerB, successA, successB, scoreLabel, mistakesLabel} = initializeView(view, level);
     view.layerA = layerA;
     view.layerB = layerB;
     view.successA = successA;
@@ -19,7 +19,7 @@ function buildView(level) {
     return view;
 }
 
-function layout(view, level) {
+function initializeView(view, level) {
     const padding = 4;
 
     // 1. main
