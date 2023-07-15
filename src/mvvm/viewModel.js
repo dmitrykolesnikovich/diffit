@@ -1,23 +1,18 @@
-let modelView = {
-    model: null,
-    view: null,
-};
-
-async function buildModelView(levelId) {
-    const level = await loadLevel(levelId % 5);
-    const model = buildModel(level);
-    const view = await buildView(level);
-    return {model, view};
-}
-
-function bindView(updateModel) {
+function bindViewModel(updateModelView) {
     return async function (...args) {
-        await updateModel(...args);
-        await updateView();
+        const oldView = modelView.view;
+        await updateModelView(...args);
+        const newView = modelView.view;
+        if (oldView !== newView) {
+            context.app.stage.removeChild(oldView);
+            context.app.stage.addChild(oldView);
+        }
+        newView.reset();
+        await setupViewModel();
     }
 }
 
-async function updateView() {
+async function setupViewModel() {
     if (modelView.model.isLevelCompleted()) {
         alert(`Ура! Уровень ${modelView.model.level.id} пройден!`);
         modelView = await buildModelView(modelView.model.level.id + 1);
@@ -27,10 +22,10 @@ async function updateView() {
 
     // view
     const {successA, successB, mainView, scoreLabel, mistakesLabel} = view;
-    context.app.stage.addChild(view);
+
 
     // success
-    successA.removeChildren();
+
     successB.removeChildren();
     for (let slot of model.successSlots) {
         successA.addChild(new GreenRectangle(slot));
