@@ -1,23 +1,18 @@
 function bindViewModel(updateModelView) {
     return async function (...args) {
-        const oldView = modelView.view;
         await updateModelView(...args);
-        const newView = modelView.view;
-        if (oldView !== newView) {
-            context.app.stage.removeChild(oldView);
-            context.app.stage.addChild(oldView);
-        }
         resetViewModel();
         await setupViewModel();
     }
 }
 
 function resetViewModel() {
-    const {view} = modelView;
-    view.scoreLabel.invalidateText()
-    view.mistakesLabel.invalidateText()
+    context.app.stage.removeChildren();
+    context.app.stage.addChild(modelView.view);
     view.successA.removeChildren();
     view.successB.removeChildren();
+    view.scoreLabel.invalidateText()
+    view.mistakesLabel.invalidateText()
 }
 
 async function setupViewModel() {
@@ -25,7 +20,6 @@ async function setupViewModel() {
     const {successA, successB, mainView, scoreLabel, mistakesLabel} = view;
 
     // success
-    successB.removeChildren();
     for (let slot of model.successSlots) {
         successA.addChild(new GreenRectangle(slot));
         successB.addChild(new GreenRectangle(slot));

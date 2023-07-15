@@ -1,21 +1,21 @@
 class View extends PIXI.Container {
     layerA;
     layerB;
-    scoreLabel;
-    mistakesLabel;
     successA;
     successB;
+    scoreLabel;
+    mistakesLabel;
 }
 
 function buildView(level) {
     const view = new View();
-    const {layerA, layerB, scoreLabel, mistakesLabel, successA, successB} = layout(view, level);
+    const {layerA, layerB, successA, successB, scoreLabel, mistakesLabel} = layout(view, level);
     view.layerA = layerA;
     view.layerB = layerB;
-    view.scoreLabel = scoreLabel;
-    view.mistakesLabel = mistakesLabel;
     view.successA = successA;
     view.successB = successB;
+    view.scoreLabel = scoreLabel;
+    view.mistakesLabel = mistakesLabel;
     return view;
 }
 
