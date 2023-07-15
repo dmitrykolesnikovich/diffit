@@ -2,7 +2,7 @@ const context = {
     app: null,
 }
 
-function initializeContext() {
+function initializeApplication() {
     const canvas = document.querySelector("#mainCanvas")
     context.app = new PIXI.Application({
         background: 'white',

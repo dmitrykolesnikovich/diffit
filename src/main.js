@@ -2,6 +2,6 @@
 
 async function main() {
     await loadFont('fonts/Filmotype_Major.otf');
-    initializeContext()
+    initializeApplication()
     await firstLevel();
 }
