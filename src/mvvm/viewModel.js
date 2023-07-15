@@ -7,8 +7,9 @@ function bindViewModel(updateModelView) {
 }
 
 function resetViewModel() {
+    const {view} = modelView;
     context.app.stage.removeChildren();
-    context.app.stage.addChild(modelView.view);
+    context.app.stage.addChild(view);
     view.successA.removeChildren();
     view.successB.removeChildren();
     view.scoreLabel.invalidateText()
