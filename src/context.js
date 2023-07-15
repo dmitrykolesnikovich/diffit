@@ -1,6 +1,6 @@
 const context = {
     app: null,
-};
+}
 
 function initializeContext() {
     const canvas = document.querySelector("#mainCanvas")
