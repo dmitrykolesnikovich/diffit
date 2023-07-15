@@ -1,3 +1,7 @@
+function GreenRectangle({x = 0, y = 0, width, height}) {
+    return new PIXI.Graphics().lineStyle(4, 0x22ff22, 1).drawRoundedRect(x, y, width, height, 16);
+}
+
 function HitArea(target, action) {
     const {x = 0, y = 0, width, height} = target
     const area = new PIXI.Container()
@@ -8,14 +12,6 @@ function HitArea(target, action) {
         action({...event, target});
     });
     return area;
-}
-
-function GreenRectangle({x = 0, y = 0, width, height}) {
-    return new PIXI.Graphics().lineStyle(4, 0x22ff22, 1).drawRoundedRect(x, y, width, height, 16);
-}
-
-function RedRectangle({x = 0, y = 0, width, height}) {
-    return new PIXI.Graphics().lineStyle(4, 0xff2222, 1).drawRect(x, y, width, height);
 }
 
 function LabelWithDescription({paddingTop, description, color}) {
@@ -41,12 +37,16 @@ function LabelWithDescription({paddingTop, description, color}) {
     return label;
 }
 
-function Sprite(slot) {
-    const sprite = new PIXI.Sprite(slot.texture);
-    sprite.position.set(slot.x, slot.y);
-    return sprite;
+function RedRectangle({x = 0, y = 0, width, height}) {
+    return new PIXI.Graphics().lineStyle(4, 0xff2222, 1).drawRect(x, y, width, height);
 }
 
 function RoundedCornersMask({width, height}, radius) {
     return new PIXI.Graphics().beginFill(0xff0000, 1).drawRoundedRect(0, 0, width, height, radius).endFill();
+}
+
+function Sprite(slot) {
+    const sprite = new PIXI.Sprite(slot.texture);
+    sprite.position.set(slot.x, slot.y);
+    return sprite;
 }

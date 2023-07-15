@@ -29,11 +29,10 @@ function setupCanvasResizeListener(canvas) {
 }
 
 function setupViewResizeListener(view, level) {
-    const canvas = context.app.view;
-    const canvasWidth = parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
-    const canvasHeight = parseFloat(canvas.style.height) + 2 * parseFloat(canvas.style.padding);
-
     function resizeView() {
+        const canvas = context.app.view;
+        const canvasWidth = parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
+        const canvasHeight = parseFloat(canvas.style.height) + 2 * parseFloat(canvas.style.padding);
         const width = level.isLandscape ? level.width : 2 * level.width;
         const scale = canvasWidth / width;
         view.scale.set(scale * 0.77);

@@ -81,5 +81,5 @@ function initializeView(view, level) {
     view.pivot.x = view.width / 2;
     view.pivot.y = view.height / 2;
     setupViewResizeListener(view, level);
-    return {mainView, layerA, layerB, scoreLabel, mistakesLabel, successA, successB};
+    return {layerA, layerB, successA, successB, scoreLabel, mistakesLabel};
 }
