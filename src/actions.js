@@ -20,7 +20,7 @@ function moveSuccess(event) {
     model.successSlots.push(event.target);
 }
 
-/*bind actions*/
+/*binding*/
 
 firstLevel = bindViewModel(firstLevel)
 nextLevel = bindViewModel(nextLevel)

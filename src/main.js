@@ -4,16 +4,14 @@ const context = {
 
 (async function bootstrap() {
     const canvas = document.querySelector("#mainCanvas")
-    setupCanvasResizeListener(canvas);
-    const app = new PIXI.Application({
+    context.app = new PIXI.Application({
         background: 'white',
         antialias: true,
         resolution: window.devicePixelRatio || 1,
         view: canvas,
         resizeTo: canvas,
     });
-    document.body.appendChild(app.view);
-    context.app = app;
+    window.onresize = resizeView;
     await main();
 }());
 

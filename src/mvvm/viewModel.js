@@ -16,7 +16,7 @@ function resetViewModel({model, view}) {
 }
 
 async function setupViewModel({model, view}) {
-    const {successA, successB, mainView, scoreLabel, mistakesLabel} = view;
+    const {mainView, successA, successB, scoreLabel, mistakesLabel} = view;
 
     // success
     for (let slot of model.successSlots) {
