@@ -1,21 +1,22 @@
 class Slot {
     layer;
     name;
-    texture;
     x;
     y;
     width;
     height;
+    texture;
 }
 
 async function buildSlot(levelId, slotJson) {
     const slot = new Slot();
-    slot.level = slotJson.level;
-    slot.name = slotJson.name;
+    const {level, name, x, y, width, height} = slotJson
+    slot.level = level;
+    slot.name = name;
+    slot.x = x;
+    slot.y = y;
+    slot.width = width;
+    slot.height = height;
     slot.texture = await loadTexture(levelId, slotJson.name);
-    slot.x = slotJson.x;
-    slot.y = slotJson.y;
-    slot.width = slotJson.width;
-    slot.height = slotJson.height;
     return slot;
 }
