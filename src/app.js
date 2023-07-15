@@ -11,12 +11,11 @@ function initializeApplication() {
         view: canvas,
         resizeTo: canvas,
     });
-    window.onresize = resizeApplication;
+    window.onresize = () => resizeApplication(canvas);
 }
 
-function resizeApplication() {
+function resizeApplication(canvas) {
     const CANVAS_RATIO = 9.0 / 16.0;
-    const canvas = context.app.view;
     const {model, view} = modelView;
 
     // 1. actual ratio
