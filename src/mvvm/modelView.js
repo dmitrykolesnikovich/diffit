@@ -13,8 +13,8 @@ async function buildModelView(levelId) {
 }
 
 function initializeModelView({model, view}) {
-    const {layerA, layerB} = view;
     const {level} = model;
+    const {layerA, layerB} = view;
 
     layerA.addChild(new HitArea(level, moveFailure));
     layerB.addChild(new HitArea(level, moveFailure));

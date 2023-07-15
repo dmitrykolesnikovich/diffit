@@ -1,13 +1,12 @@
 function bindViewModel(updateModelView) {
     return async function (...args) {
         await updateModelView(...args);
-        resetViewModel();
-        await setupViewModel();
+        resetViewModel(modelView);
+        await setupViewModel(modelView);
     }
 }
 
-function resetViewModel() {
-    const {view} = modelView;
+function resetViewModel({model, view}) {
     context.app.stage.removeChildren();
     context.app.stage.addChild(view);
     view.successA.removeChildren();
@@ -16,8 +15,7 @@ function resetViewModel() {
     view.mistakesLabel.invalidateText()
 }
 
-async function setupViewModel() {
-    const {model, view} = modelView;
+async function setupViewModel({model, view}) {
     const {successA, successB, mainView, scoreLabel, mistakesLabel} = view;
 
     // success
