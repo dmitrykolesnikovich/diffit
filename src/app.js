@@ -11,11 +11,10 @@ function initializeApplication() {
         view: canvas,
         resizeTo: canvas,
     });
-    window.onresize = () => resizeApplication(canvas);
+    window.onresize = () => resizeApplication(canvas, 9.0 / 16.0);
 }
 
-function resizeApplication(canvas) {
-    const CANVAS_RATIO = 9.0 / 16.0;
+function resizeApplication(canvas, ratio) {
     const {model, view} = modelView;
 
     // 1. actual ratio
@@ -25,12 +24,12 @@ function resizeApplication(canvas) {
     // 2. actual size
     let height;
     let width;
-    if (CANVAS_RATIO <= actualRatio) {
+    if (ratio <= actualRatio) {
         height = window.innerHeight - emptySpace;
-        width = height * CANVAS_RATIO;
+        width = height * ratio;
     } else {
         width = window.innerWidth - emptySpace;
-        height = width / CANVAS_RATIO;
+        height = width / ratio;
     }
 
     // 3. apply
