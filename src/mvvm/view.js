@@ -1,5 +1,5 @@
 class View extends PIXI.Container {
-    mainView;
+    failures;
     layerA;
     layerB;
     successA;
@@ -10,8 +10,8 @@ class View extends PIXI.Container {
 
 function buildView(level) {
     const view = new View();
-    const {mainView, layerA, layerB, successA, successB, scoreLabel, mistakesLabel} = initializeView(view, level);
-    view.mainView = mainView;
+    const {failures, layerA, layerB, successA, successB, scoreLabel, mistakesLabel} = initializeView(view, level);
+    view.failures = failures;
     view.layerA = layerA;
     view.layerB = layerB;
     view.successA = successA;
@@ -80,9 +80,11 @@ function initializeView(view, level) {
     titleLabel.x = mainView.width / 2;
     titleLabel.y = -64;
 
+    const failures = mainView.addChild(new PIXI.Container());
+
     view.pivot.x = view.width / 2;
     view.pivot.y = view.height / 2;
-    return {mainView, layerA, layerB, successA, successB, scoreLabel, mistakesLabel};
+    return {failures, layerA, layerB, successA, successB, scoreLabel, mistakesLabel};
 }
 
 function resizeView() {

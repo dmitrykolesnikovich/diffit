@@ -16,7 +16,7 @@ function resetViewModel({model, view}) {
 }
 
 async function setupViewModel({model, view}) {
-    const {mainView, successA, successB, scoreLabel, mistakesLabel} = view;
+    const {failures, successA, successB, scoreLabel, mistakesLabel} = view;
 
     // success
     for (let slot of model.successSlots) {
@@ -26,7 +26,7 @@ async function setupViewModel({model, view}) {
 
     // failure
     for (let failurePoint of model.failurePoints) {
-        mainView.addChild(new RedRectangle({x: failurePoint.x - 32, y: failurePoint.y - 32, width: 64, height: 64}));
+        failures.addChild(new RedRectangle({x: failurePoint.x - 32, y: failurePoint.y - 32, width: 64, height: 64}));
     }
 
     // status
