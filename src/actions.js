@@ -2,12 +2,22 @@ async function firstLevel() {
     modelView = await buildModelView(1);
 }
 
+async function nextLevel() {
+    const {model} = modelView;
+    if (model.isLevelCompleted()) {
+        alert(`Ура! Уровень ${model.level.id} пройден!`);
+        modelView = await buildModelView(model.level.id + 1);
+    }
+}
+
 function moveFailure(event) {
-    modelView.model.failurePoints.push(event);
+    const {model} = modelView;
+    model.failurePoints.push(event);
 }
 
 function moveSuccess(event) {
-    modelView.model.successSlots.push(event.target);
+    const {model} = modelView;
+    model.successSlots.push(event.target);
 }
 
 /*bind actions*/

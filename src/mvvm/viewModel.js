@@ -7,25 +7,24 @@ function bindViewModel(updateModelView) {
             context.app.stage.removeChild(oldView);
             context.app.stage.addChild(oldView);
         }
-        newView.reset();
+        resetViewModel();
         await setupViewModel();
     }
 }
 
+function resetViewModel() {
+    const {view} = modelView;
+    view.scoreLabel.invalidateText()
+    view.mistakesLabel.invalidateText()
+    view.successA.removeChildren();
+    view.successB.removeChildren();
+}
+
 async function setupViewModel() {
-    if (modelView.model.isLevelCompleted()) {
-        alert(`Ура! Уровень ${modelView.model.level.id} пройден!`);
-        modelView = await buildModelView(modelView.model.level.id + 1);
-    }
-
     const {model, view} = modelView;
-
-    // view
     const {successA, successB, mainView, scoreLabel, mistakesLabel} = view;
 
-
     // success
-
     successB.removeChildren();
     for (let slot of model.successSlots) {
         successA.addChild(new GreenRectangle(slot));

@@ -7,8 +7,9 @@ async function buildModelView(levelId) {
     const level = await loadLevel(levelId % 5);
     const model = buildModel(level);
     const view = await buildView(level);
-    initializeModelView({model, view})
-    return {model, view};
+    const modelView = {model, view};
+    initializeModelView(modelView)
+    return modelView;
 }
 
 function initializeModelView({model, view}) {

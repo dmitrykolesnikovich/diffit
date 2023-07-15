@@ -5,12 +5,6 @@ class View extends PIXI.Container {
     mistakesLabel;
     successA;
     successB;
-    reset() {
-        this.scoreLabel.invalidateText()
-        this.mistakesLabel.invalidateText()
-        this.successA.removeChildren();
-        this.successB.removeChildren();
-    }
 }
 
 function buildView(level) {
