@@ -1,18 +1,18 @@
-let modelView = {
-    model: null,
-    view: null,
-};
+class ModelView {
+    model;
+    view;
+}
 
-async function buildModelView(levelId) {
-    const level = await loadLevel(levelId % 5);
-    const model = buildModel(level);
-    const view = await buildView(level);
-    const modelView = {model, view};
+function buildModelView(level) {
+    const modelView = new ModelView();
+    modelView.model = buildModel(level);
+    modelView.view = buildView(level);
     initializeModelView(modelView)
     return modelView;
 }
 
-function initializeModelView({model, view}) {
+function initializeModelView(modelView) {
+    const {model, view} = modelView;
     const {level} = model;
     const {layerA, layerB} = view;
 
@@ -23,3 +23,5 @@ function initializeModelView({model, view}) {
         layerB.addChild(new HitArea(slot, moveSuccess));
     }
 }
+
+buildModelView = bindViewModel(buildModelView)

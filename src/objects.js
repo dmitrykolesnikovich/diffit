@@ -29,8 +29,12 @@ function LabelWithDescription({paddingTop, description, color}) {
     descriptionLabel.anchor.set(1, 1);
     descriptionLabel.position.x = -label.width;
 
-    // 3. invalidateText
-    label.invalidateText = (text = "") => {
+    // 3. text
+    label.resetText = () => {
+        label.text = null;
+        descriptionLabel.position.x = 0;
+    }
+    label.setupText = (text) => {
         label.text = text;
         descriptionLabel.position.x = -label.width;
     }

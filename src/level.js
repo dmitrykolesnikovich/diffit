@@ -18,19 +18,15 @@ class Level {
 
 }
 
-async function buildLevel(levelId, levelJson) {
+function buildLevel(levelId, levelJson) {
     const level = new Level();
     level.id = levelId;
     for (let slotJson of levelJson.slots) {
-        switch (slotJson.layer) {
-            case "standart": {
-                level.standardSlot = await buildSlot(levelId, slotJson);
-                break;
-            }
-            default: {
-                level.slots.push(await buildSlot(levelId, slotJson));
-                break;
-            }
+        const slot = buildSlot(levelId, slotJson);
+        if (slot.layer === "standart") {
+            level.standardSlot = slot;
+        } else {
+            level.slots.push(slot);
         }
     }
     return level;

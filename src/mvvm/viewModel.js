@@ -1,22 +1,21 @@
-function bindViewModel(updateModelView) {
-    return async function (...args) {
-        await updateModelView(...args);
-        resetViewModel(modelView);
-        await setupViewModel(modelView);
-    }
+function updateViewModel() {
+    resetViewModel();
+    setupViewModel();
 }
 
-function resetViewModel({model, view}) {
+function resetViewModel() {
+    const {model, view} = context.modelView;
     context.app.stage.removeChildren();
-    context.app.stage.addChild(view);
     view.successA.removeChildren();
     view.successB.removeChildren();
-    view.scoreLabel.invalidateText()
-    view.mistakesLabel.invalidateText()
+    view.scoreLabel.resetText();
+    view.mistakesLabel.resetText();
 }
 
-async function setupViewModel({model, view}) {
+function setupViewModel() {
+    const {model, view} = context.modelView;
     const {failures, successA, successB, scoreLabel, mistakesLabel} = view;
+    context.app.stage.addChild(view);
 
     // success
     for (let slot of model.successSlots) {
@@ -30,6 +29,6 @@ async function setupViewModel({model, view}) {
     }
 
     // status
-    scoreLabel.invalidateText(`${model.score}/${model.totalSlotCount}`);
-    mistakesLabel.invalidateText(model.mistakesCount);
+    scoreLabel.setupText(`${model.score}/${model.totalSlotCount}`);
+    mistakesLabel.setupText(model.mistakesCount);
 }

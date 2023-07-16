@@ -1,5 +1,6 @@
 const context = {
     app: null,
+    modelView: null,
 }
 
 function initializeApplication() {
@@ -15,7 +16,7 @@ function initializeApplication() {
 }
 
 function resizeApplication(canvas, ratio) {
-    const {model, view} = modelView;
+    const {model, view} = context.modelView;
 
     // 1. actual ratio
     const emptySpace = 2 * parseInt(canvas.style.padding);

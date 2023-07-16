@@ -31,7 +31,7 @@ function initializeView(view, level) {
     // 2. Layer A
     const layerA = mainView.addChild(new PIXI.Container());
     layerA.position.set(0, 0);
-    layerA.addChild(new PIXI.Sprite(level.standardSlot.texture));
+    layerA.addChild(Sprite(level.standardSlot));
     for (let slot of level.slots.filter(it => it.layer === "LayerA")) layerA.addChild(Sprite(slot));
     layerA.mask = layerA.addChild(RoundedCornersMask(layerA, 16));
     const successA = layerA.addChild(new PIXI.Container());
@@ -43,7 +43,7 @@ function initializeView(view, level) {
 
     // 3. Layer B
     const layerB = mainView.addChild(new PIXI.Container());
-    layerB.addChild(new PIXI.Sprite(level.standardSlot.texture));
+    layerB.addChild(Sprite(level.standardSlot));
     for (let slot of level.slots.filter(it => it.layer === "LayerB")) layerB.addChild(Sprite(slot));
     layerB.mask = layerB.addChild(RoundedCornersMask(layerB, 16));
     const successB = layerB.addChild(new PIXI.Container());

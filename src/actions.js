@@ -1,28 +1,26 @@
-async function firstLevel() {
-    modelView = await buildModelView(1);
+moveFailure = bindViewModel(moveFailure)
+moveSuccess = bindViewModel(moveSuccess)
+
+/*actions*/
+
+function goToLevel(levelId) {
+    loadLevel(levelId, buildModelView)
 }
 
-async function nextLevel() {
-    const {model} = modelView;
+function nextLevel() {
+    const {model} = context.modelView;
     if (model.isLevelCompleted()) {
         alert(`Ура! Уровень ${model.level.id} пройден!`);
-        modelView = await buildModelView(model.level.id + 1);
+        goToLevel((model.level.id + 1) % 5);
     }
 }
 
 function moveFailure(event) {
-    const {model} = modelView;
+    const {model} = context.modelView;
     model.failurePoints.push(event);
 }
 
 function moveSuccess(event) {
-    const {model} = modelView;
+    const {model} = context.modelView;
     model.successSlots.push(event.target);
 }
-
-/*binding*/
-
-firstLevel = bindViewModel(firstLevel)
-nextLevel = bindViewModel(nextLevel)
-moveFailure = bindViewModel(moveFailure)
-moveSuccess = bindViewModel(moveSuccess)
