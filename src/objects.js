@@ -30,7 +30,7 @@ function LabelWithDescription({paddingTop, description, color}) {
     descriptionLabel.position.x = -label.width;
 
     // 3. text
-    label.resetText = () => {
+    label.removeText = () => {
         label.text = null;
         descriptionLabel.position.x = 0;
     }

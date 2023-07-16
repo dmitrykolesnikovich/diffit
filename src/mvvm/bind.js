@@ -1,4 +1,4 @@
-function bindViewModel(updateModelView) {
+function bind(updateModelView) {
     const isFunctionAsynchronous = updateModelView.constructor.name === 'AsyncFunction';
     if (isFunctionAsynchronous) {
         return function (...args) {

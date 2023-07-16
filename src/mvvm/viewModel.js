@@ -8,8 +8,8 @@ function resetViewModel() {
     context.app.stage.removeChildren();
     view.successA.removeChildren();
     view.successB.removeChildren();
-    view.scoreLabel.resetText();
-    view.mistakesLabel.resetText();
+    view.scoreLabel.removeText();
+    view.mistakesLabel.removeText();
 }
 
 function setupViewModel() {

@@ -3,10 +3,10 @@ const context = {
     modelView: null,
 }
 
-// modelView
-buildModelView = bindViewModel(buildModelView)
-moveFailure = bindViewModel(moveFailure)
-moveSuccess = bindViewModel(moveSuccess)
+// mvvm
+buildModelView = bind(buildModelView)
+moveFailure = bind(moveFailure)
+moveSuccess = bind(moveSuccess)
 
 // app
 initializeApplication(document.querySelector("#mainCanvas"));
