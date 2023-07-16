@@ -9,5 +9,5 @@ moveFailure = bindViewModel(moveFailure)
 moveSuccess = bindViewModel(moveSuccess)
 
 // app
-initializeApplication();
+initializeApplication(document.querySelector("#mainCanvas"));
 goToLevel(1);

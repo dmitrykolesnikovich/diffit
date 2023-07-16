@@ -1,5 +1,4 @@
-function initializeApplication() {
-    const canvas = document.querySelector("#mainCanvas")
+function initializeApplication(canvas) {
     context.app = new PIXI.Application({
         background: 'white',
         antialias: true,
