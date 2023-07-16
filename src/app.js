@@ -1,8 +1,3 @@
-const context = {
-    app: null,
-    modelView: null,
-}
-
 function initializeApplication() {
     const canvas = document.querySelector("#mainCanvas")
     context.app = new PIXI.Application({

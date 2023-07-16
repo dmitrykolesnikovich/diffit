@@ -23,5 +23,3 @@ function initializeModelView(modelView) {
         layerB.addChild(new HitArea(slot, moveSuccess));
     }
 }
-
-
