@@ -24,4 +24,4 @@ function initializeModelView(modelView) {
     }
 }
 
-buildModelView = bindViewModel(buildModelView)
+

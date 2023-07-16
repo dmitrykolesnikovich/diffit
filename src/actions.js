@@ -1,8 +1,3 @@
-moveFailure = bindViewModel(moveFailure)
-moveSuccess = bindViewModel(moveSuccess)
-
-/*actions*/
-
 function goToLevel(levelId) {
     loadLevel(levelId, buildModelView)
 }
