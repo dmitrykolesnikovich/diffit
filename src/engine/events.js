@@ -21,3 +21,5 @@ class Events {
     }
 
 }
+
+const events = new Events();

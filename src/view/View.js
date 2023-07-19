@@ -1,19 +1,15 @@
 class View extends PIXI.Container {
     layerA;
     layerB;
-    successA;
-    successB;
     scoreLabel;
     mistakesLabel;
 }
 
 function buildView(level) {
     const view = new View();
-    const {layerA, layerB, successA, successB, scoreLabel, mistakesLabel} = initializeView(view, level);
+    const {layerA, layerB, scoreLabel, mistakesLabel} = initializeView(view, level);
     view.layerA = layerA;
     view.layerB = layerB;
-    view.successA = successA;
-    view.successB = successB;
     view.scoreLabel = scoreLabel;
     view.mistakesLabel = mistakesLabel;
     return view;
@@ -26,25 +22,15 @@ function initializeView(view, level) {
     const mainView = view.addChild(new PIXI.Container());
     mainView.position.y = 92
 
-    // 2. Layer A
-    const layerA = mainView.addChild(new PIXI.Container());
-    layerA.position.set(0, 0);
-    layerA.addChild(Sprite(level.standardSlot));
-    for (let slot of level.slots.filter(it => it.layer === "LayerA")) layerA.addChild(Sprite(slot));
-    layerA.mask = layerA.addChild(RoundedCornersMask(layerA, 16));
-    const successA = layerA.addChild(new PIXI.Container());
+    // 2. LayerView A, LayerView B
+    const layerA = mainView.addChild(buildLayer(level, "LayerA"));
+    const layerB = mainView.addChild(buildLayer(level, "LayerB"));
+
     {
         const x = level.isLandscape ? 0 : -padding;
         const y = level.isLandscape ? -padding : 0;
         layerA.position.set(x, y);
     }
-
-    // 3. Layer B
-    const layerB = mainView.addChild(new PIXI.Container());
-    layerB.addChild(Sprite(level.standardSlot));
-    for (let slot of level.slots.filter(it => it.layer === "LayerB")) layerB.addChild(Sprite(slot));
-    layerB.mask = layerB.addChild(RoundedCornersMask(layerB, 16));
-    const successB = layerB.addChild(new PIXI.Container());
     {
         const x = level.isLandscape ? 0 : level.standardSlot.width + padding;
         const y = level.isLandscape ? level.standardSlot.height + padding : 0;
@@ -80,5 +66,5 @@ function initializeView(view, level) {
 
     view.pivot.x = mainView.width / 2;
     view.pivot.y = mainView.height / 2;
-    return {layerA, layerB, successA, successB, scoreLabel, mistakesLabel};
+    return {layerA, layerB, scoreLabel, mistakesLabel};
 }

@@ -1,5 +1,3 @@
-const events = new Events();
-
 const context = {
     app: null,
     modelView: null,
