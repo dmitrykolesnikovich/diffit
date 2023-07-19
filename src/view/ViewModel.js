@@ -23,6 +23,6 @@ function setupViewModel({model, view}) {
     }
 
     // status
-    scoreLabel.setupText(`${model.score}/${model.totalSlotCount}`);
+    scoreLabel.setupText(`${model.score}/${model.total}`);
     mistakesLabel.setupText(model.mistakesCount);
 }

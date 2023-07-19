@@ -33,8 +33,8 @@ function initializeView(view, level) {
         layerA.position.set(x, y);
     }
     {
-        const x = level.isLandscape ? 0 : level.standardSlot.width + padding;
-        const y = level.isLandscape ? level.standardSlot.height + padding : 0;
+        const x = level.isLandscape ? 0 : level.width + padding;
+        const y = level.isLandscape ? level.height + padding : 0;
         layerB.position.set(x, y);
     }
     // <<

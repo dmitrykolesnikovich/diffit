@@ -11,7 +11,7 @@ class Slot {
 function buildSlot(levelId, slotJson) {
     const slot = new Slot();
     const {layer, name, x, y, width, height} = slotJson
-    slot.id = `level${levelId}/${slot.name}`;
+    slot.id = `level${levelId}/${name}`;
     slot.layer = layer;
     slot.name = name;
     slot.x = x;

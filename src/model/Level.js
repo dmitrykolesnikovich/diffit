@@ -1,21 +1,10 @@
 class Level {
-
     id;
-    standardSlot = null;
+    standardSlot;
     slots = [];
-
-    get width() {
-        return this.standardSlot.width;
-    }
-
-    get height() {
-        return this.standardSlot.height;
-    }
-
-    get isLandscape() {
-        return this.width > this.height;
-    }
-
+    width;
+    height;
+    isLandscape;
 }
 
 function buildLevel(levelId, levelJson) {
@@ -25,6 +14,9 @@ function buildLevel(levelId, levelJson) {
         const slot = buildSlot(levelId, slotJson);
         if (slot.layer === "standart") {
             level.standardSlot = slot;
+            level.width = slot.width;
+            level.height = slot.height;
+            level.isLandscape = slot.width > slot.height;
         } else {
             level.slots.push(slot);
         }

@@ -12,8 +12,8 @@ async function loadLevel(levelId) {
 
     // slots
     async function loadSlotTexture(slot) {
-        PIXI.Assets.add(slot.textureId, `levels/${levelId}/images/${slot.name}.jpg`);
-        await PIXI.Assets.load(slot.textureId);
+        PIXI.Assets.add(slot.id, `levels/${levelId}/images/${slot.name}.jpg`);
+        await PIXI.Assets.load(slot.id);
     }
 
     await loadSlotTexture(level.standardSlot);
