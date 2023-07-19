@@ -1,12 +1,15 @@
-class Application extends PIXI.Application {
-
-    ratio;
-    padding;
-
-    onResize() {
+function buildApplication({canvas, ratio, padding, background}) {
+    const app = new PIXI.Application({
+        background,
+        antialias: true,
+        resolution: window.devicePixelRatio || 1,
+        view: canvas,
+        resizeTo: canvas,
+        sharedTicker: true,
+    });
+    app.onResize = function ({model, view} = context.modelView) {
         const canvas = this.view;
-        const {model, view} = context.modelView;
-        const {width, height} = fitDimension(this.ratio, this.padding);
+        const {width, height} = fitDimension(ratio, padding);
 
         // 3. apply
         canvas.style.width = `${width}px`
@@ -18,18 +21,5 @@ class Application extends PIXI.Application {
         view.y = canvas.height / 2;
         view.scale.set(0.77 * (canvas.width / (model.level.isLandscape ? model.level.width : 2 * model.level.width)));
     }
-
-}
-
-function buildApplication({canvas, ratio, padding, background}) {
-    const app = new Application({
-        background,
-        antialias: true,
-        resolution: window.devicePixelRatio || 1,
-        view: canvas,
-        resizeTo: canvas
-    });
-    app.ratio = ratio;
-    app.padding = padding;
     return app;
 }

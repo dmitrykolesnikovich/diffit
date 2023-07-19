@@ -1,21 +1,16 @@
-function bind(action) {
-    const isFunctionAsynchronous = action.constructor.name === 'AsyncFunction';
-    if (isFunctionAsynchronous) {
-        return function (...args) {
-            action(...args).then((result) => {
-                if (result instanceof ModelView) {
-                    context.modelView = result;
-                }
-                updateViewModel();
-            });
-        }
-    } else {
-        return function (...args) {
-            const result = action(...args);
-            if (result instanceof ModelView) {
-                context.modelView = result;
-            }
+function bind(object) {
+
+    function complete() {
+        if (context.modelView != null) {
             updateViewModel();
         }
     }
+
+    if (object instanceof Function) {
+        return bindAction(object, complete)
+    } else {
+        bindProperties(object, complete)
+        return object;
+    }
+
 }

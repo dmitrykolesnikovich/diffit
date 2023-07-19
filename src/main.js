@@ -4,7 +4,7 @@ const context = {
 }
 
 // mvvm
-buildModelView = bind(buildModelView)
+bind(context);
 moveFailure = bind(moveFailure)
 moveSuccess = bind(moveSuccess)
 
