@@ -11,6 +11,7 @@ moveFailure = bind(moveFailure)
 moveSuccess = bind(moveSuccess)
 
 // actions
+events.on('bootstrap', () => showLevel(1));
 events.on('showLevel', showLevel)
 events.on('success', moveSuccess)
 events.on('failure', moveFailure)
@@ -25,4 +26,6 @@ context.app = buildApplication({
 });
 window.onresize = () => context.app.onResize();
 window.onorientationchange = () => context.app.onResize();
-events.emit('showLevel', 5);
+
+// bootstrap
+events.emit('bootstrap');
