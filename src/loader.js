@@ -22,5 +22,6 @@ function loadLevel(levelId, complete) {
         }
 
         complete(level)
+
     })();
 }
