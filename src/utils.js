@@ -26,7 +26,7 @@ function bindAction(action, complete) {
     const isFunctionAsynchronous = action.constructor.name === 'AsyncFunction';
     if (isFunctionAsynchronous) {
         return function (...args) {
-            action(...args).then();
+            action(...args).then(complete);
         }
     } else {
         return function (...args) {

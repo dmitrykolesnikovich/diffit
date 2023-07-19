@@ -1,7 +1,12 @@
-function showLevel(levelId) {
-    loadLevel(levelId, (level) => {
-        context.modelView = buildModelView(level);
-    });
+events.on('showLevel', bind(showLevel));
+events.on('success', bind(moveSuccess));
+events.on('failure', bind(moveFailure));
+
+/*actions*/
+
+async function showLevel(levelId) {
+    const level = await loadLevel(levelId);
+    context.modelView = buildModelView(level);
 }
 
 function moveFailure(event) {

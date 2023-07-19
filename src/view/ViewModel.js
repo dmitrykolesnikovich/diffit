@@ -1,6 +1,7 @@
 function updateViewModel(modelView = context.modelView) {
     resetViewModel(modelView);
     setupViewModel(modelView);
+    window.dispatchEvent(new Event('resize'));
 }
 
 function resetViewModel({model, view}) {

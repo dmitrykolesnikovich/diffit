@@ -21,7 +21,8 @@ class Level {
 function buildLevel(levelId, levelJson) {
     const level = new Level();
     level.id = levelId;
-    for (let slot of levelJson.slots) {
+    for (let slotJson of levelJson.slots) {
+        const slot = buildSlot(levelId, slotJson);
         if (slot.layer === "standart") {
             level.standardSlot = slot;
         } else {

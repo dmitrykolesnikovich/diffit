@@ -2,26 +2,23 @@ PIXI.Assets.init({
     basePath: "../res"
 });
 
-function loadLevel(levelId, complete) {
-    (async function () {
-        // fonts
-        await PIXI.Assets.load('fonts/Filmotype_Major.otf');
+async function loadLevel(levelId) {
+    // fonts
+    await PIXI.Assets.load('fonts/Filmotype_Major.otf');
 
-        // level
-        const levelJson = await PIXI.Assets.load(`levels/${levelId}/level.json`);
-        const level = buildLevel(levelId, levelJson);
+    // level
+    const levelJson = await PIXI.Assets.load(`levels/${levelId}/level.json`);
+    const level = buildLevel(levelId, levelJson);
 
-        // slots
-        async function loadSlotTexture(slot) {
-            slot.texture = await PIXI.Assets.load(`levels/${levelId}/images/${slot.name}.jpg`);
-        }
+    // slots
+    async function loadSlotTexture(slot) {
+        PIXI.Assets.add(slot.textureId, `levels/${levelId}/images/${slot.name}.jpg`);
+        await PIXI.Assets.load(slot.textureId);
+    }
 
-        await loadSlotTexture(level.standardSlot);
-        for (const slot of level.slots) {
-            await loadSlotTexture(slot);
-        }
-
-        complete(level)
-        window.dispatchEvent(new Event('resize'));
-    })();
+    await loadSlotTexture(level.standardSlot);
+    for (const slot of level.slots) {
+        await loadSlotTexture(slot);
+    }
+    return level
 }

@@ -51,7 +51,7 @@ function RoundedCornersMask({width, height}, radius) {
 }
 
 function Sprite(slot) {
-    const sprite = new PIXI.Sprite(slot.texture);
+    const sprite = PIXI.Sprite.from(slot.textureId);
     sprite.position.set(slot.x, slot.y);
     return sprite;
 }

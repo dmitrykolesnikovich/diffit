@@ -1,18 +1,7 @@
-const context = {
+const context = bind({
     app: null,
     modelView: null,
-}
-
-// bindings
-bind(context);
-moveFailure = bind(moveFailure)
-moveSuccess = bind(moveSuccess)
-
-// actions
-events.on('bootstrap', () => showLevel(5));
-events.on('showLevel', showLevel);
-events.on('success', moveSuccess);
-events.on('failure', moveFailure);
+});
 
 // app
 context.app = buildApplication({
@@ -25,4 +14,4 @@ window.onresize = () => context.app.onResize();
 window.onorientationchange = () => context.app.onResize();
 
 // bootstrap
-events.emit('bootstrap');
+events.emit('showLevel', 5);
