@@ -11,16 +11,15 @@ function fitDimension(ratio, padding = 0) {
 }
 
 function delay(millis, runnable, scope, ...args) {
-    let delayMS = millis;
-    const delayWrapper = () => {
-        delayMS -= context.app.ticker.deltaMS;
-        if (delayMS <= 0) {
+    let current = millis;
+    const task = () => {
+        current -= context.app.ticker.deltaMS;
+        if (current <= 0) {
             runnable.call(scope, ...args);
-            context.app.ticker.remove(delayWrapper);
+            context.app.ticker.remove(task);
         }
     };
-    context.app.ticker.add(delayWrapper);
-    return delayWrapper;
+    context.app.ticker.add(task);
 }
 
 function bindAction(action, complete) {
