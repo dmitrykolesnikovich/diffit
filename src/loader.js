@@ -22,6 +22,6 @@ function loadLevel(levelId, complete) {
         }
 
         complete(level)
-
+        window.dispatchEvent(new Event('resize'));
     })();
 }

@@ -1,21 +1,21 @@
 class Application extends PIXI.Application {
 
-    onResize(ratio = 9.0 / 16.0) {
+    onResize(ratio = 9.0 / 16.0, padding = 16) {
         const canvas = this.view;
         const {model, view} = context.modelView;
 
         // 1. actual ratio
-        const emptySpace = 2 * parseInt(canvas.style.padding);
-        const actualRatio = (window.innerWidth - emptySpace) / (window.innerHeight - emptySpace);
+        const padding2 = 2 * padding;
+        const actualRatio = (window.innerWidth - padding2) / (window.innerHeight - padding2);
 
         // 2. actual size
         let height;
         let width;
         if (ratio <= actualRatio) {
-            height = window.innerHeight - emptySpace;
+            height = window.innerHeight - padding2;
             width = height * ratio;
         } else {
-            width = window.innerWidth - emptySpace;
+            width = window.innerWidth - padding2;
             height = width / ratio;
         }
 
@@ -25,12 +25,10 @@ class Application extends PIXI.Application {
         canvas.width = width * window.devicePixelRatio;
         canvas.height = height * window.devicePixelRatio;
 
-        const canvasWidth = parseFloat(canvas.style.width) + 2 * parseFloat(canvas.style.padding);
-        const canvasHeight = parseFloat(canvas.style.height) + 2 * parseFloat(canvas.style.padding);
-        const scale = canvasWidth / (model.level.isLandscape ? model.level.width : 2 * model.level.width);
+        view.x = canvas.width / 2;
+        view.y = canvas.height / 2;
+        const scale = canvas.width / (model.level.isLandscape ? model.level.width : 2 * model.level.width);
         view.scale.set(scale * 0.77);
-        view.x = canvasWidth / 2;
-        view.y = canvasHeight / 2;
     }
 
 }

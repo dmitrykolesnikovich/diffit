@@ -82,7 +82,7 @@ function initializeView(view, level) {
 
     const failures = mainView.addChild(new PIXI.Container());
 
-    view.pivot.x = view.width / 2;
-    view.pivot.y = view.height / 2;
+    view.pivot.x = mainView.width / 2;
+    view.pivot.y = mainView.height / 2;
     return {failures, layerA, layerB, successA, successB, scoreLabel, mistakesLabel};
 }
