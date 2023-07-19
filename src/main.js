@@ -14,4 +14,4 @@ window.onresize = () => context.app.onResize();
 window.onorientationchange = () => context.app.onResize();
 
 // bootstrap
-events.emit('showLevel', 5);
+controller.emit('showLevel', 5);

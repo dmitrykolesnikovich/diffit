@@ -1,6 +1,8 @@
-events.on('showLevel', bind(showLevel));
-events.on('success', bind(moveSuccess));
-events.on('failure', bind(moveFailure));
+const controller = new EventBus();
+
+controller.on('showLevel', bind(showLevel));
+controller.on('success', bind(moveSuccess));
+controller.on('failure', bind(moveFailure));
 
 /*actions*/
 
@@ -32,7 +34,7 @@ function _checkNextLevel() {
     if (model.isLevelCompleted()) {
         delay(220, () => {
             alert(`Ура! Уровень ${model.level.id} пройден!`);
-            events.emit('showLevel', (model.level.id + 1) % 5);
+            controller.emit('showLevel', (model.level.id + 1) % 5);
         });
     }
 }

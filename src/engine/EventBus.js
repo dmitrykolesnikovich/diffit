@@ -1,4 +1,4 @@
-class Events {
+class EventBus {
 
     mapping = {};
 
@@ -21,5 +21,3 @@ class Events {
     }
 
 }
-
-const events = new Events();
