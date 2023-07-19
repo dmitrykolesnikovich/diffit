@@ -17,10 +17,12 @@ function moveFailure(event) {
 function moveSuccess(slot) {
     const {model} = context.modelView;
     model.successSlots.push(slot);
-    events.emit('checkNextLevel');
+    _checkNextLevel();
 }
 
-function checkNextLevel() {
+/*internals*/
+
+function _checkNextLevel() {
     const {model} = context.modelView;
     if (model.isLevelCompleted()) {
         delay(220, () => {

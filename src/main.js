@@ -12,10 +12,9 @@ moveSuccess = bind(moveSuccess)
 
 // actions
 events.on('bootstrap', () => showLevel(5));
-events.on('showLevel', showLevel)
-events.on('success', moveSuccess)
-events.on('failure', moveFailure)
-events.on('checkNextLevel', checkNextLevel)
+events.on('showLevel', showLevel);
+events.on('success', moveSuccess);
+events.on('failure', moveFailure);
 
 // app
 context.app = buildApplication({
