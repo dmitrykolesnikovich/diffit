@@ -4,9 +4,14 @@ function showLevel(levelId) {
     });
 }
 
-function moveFailure(point) {
+function moveFailure(event) {
     const {model} = context.modelView;
-    model.failurePoints.push(point);
+    model.mistakesCount++;
+
+    const layer = event.area.parent;
+    const redCross = new RedCross(event);
+    layer.addChild(redCross);
+    delay(220, () => layer.removeChild(redCross));
 }
 
 function moveSuccess(slot) {
@@ -18,7 +23,7 @@ function moveSuccess(slot) {
 function checkNextLevel() {
     const {model} = context.modelView;
     if (model.isLevelCompleted()) {
-        delay(200, () => {
+        delay(220, () => {
             alert(`Ура! Уровень ${model.level.id} пройден!`);
             events.emit('showLevel', (model.level.id + 1) % 5);
         });

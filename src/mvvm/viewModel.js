@@ -12,18 +12,13 @@ function resetViewModel({model, view}) {
 }
 
 function setupViewModel({model, view}) {
-    const {failures, successA, successB, scoreLabel, mistakesLabel} = view;
+    const {successA, successB, scoreLabel, mistakesLabel} = view;
     context.app.stage.addChild(view);
 
     // success
     for (let slot of model.successSlots) {
         successA.addChild(new GreenRectangle(slot));
         successB.addChild(new GreenRectangle(slot));
-    }
-
-    // failure
-    for (let failurePoint of model.failurePoints) {
-        failures.addChild(new RedCross(failurePoint));
     }
 
     // status

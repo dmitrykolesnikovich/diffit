@@ -7,9 +7,10 @@ function HitArea(target, action) {
     const area = new PIXI.Container()
     area.interactive = true;
     area.hitArea = new PIXI.Rectangle(x, y, width, height);
-    area.on('click', (event) => {
+    area.on('pointerdown', (event) => {
         event.stopPropagation();
-        action({...event, target});
+        const point = area.toLocal(event.global);
+        action({...point, target, area});
     });
     return area;
 }

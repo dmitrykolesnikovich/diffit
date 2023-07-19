@@ -1,12 +1,8 @@
 class Model {
 
     level;
-    failurePoints = [];
+    mistakesCount = 0;
     successSlots = [];
-
-    get mistakesCount() {
-        return this.failurePoints.length;
-    }
 
     get score() {
         return this.successSlots.length;
