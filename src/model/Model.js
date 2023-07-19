@@ -18,6 +18,6 @@ class Model {
 function buildModel(level) {
     const model = new Model();
     model.level = level;
-    model.total = level.slots.length - 1;
+    model.total = level.slots.length;
     return model;
 }
