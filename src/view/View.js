@@ -20,12 +20,13 @@ function initializeView(view, level) {
 
     // 1. main
     const mainView = view.addChild(new PIXI.Container());
-    mainView.position.y = 92
 
     // 2. LayerView A, LayerView B
     const layerA = mainView.addChild(buildLayer(level, "LayerA"));
     const layerB = mainView.addChild(buildLayer(level, "LayerB"));
 
+    // >> todo replace with grid
+    mainView.position.y = 92
     {
         const x = level.isLandscape ? 0 : -padding;
         const y = level.isLandscape ? -padding : 0;
@@ -36,6 +37,7 @@ function initializeView(view, level) {
         const y = level.isLandscape ? level.standardSlot.height + padding : 0;
         layerB.position.set(x, y);
     }
+    // <<
 
     // 4. statusPanel
     const statusPanel = mainView.addChild(new PIXI.Container());
@@ -60,11 +62,14 @@ function initializeView(view, level) {
         fill: 'black',
         align: 'center',
     }));
+
+    // >> todo replace with grid
     titleLabel.anchor.set(1)
     titleLabel.x = mainView.width / 2;
     titleLabel.y = -64;
-
     view.pivot.x = mainView.width / 2;
     view.pivot.y = mainView.height / 2;
+    // <<
+
     return {layerA, layerB, scoreLabel, mistakesLabel};
 }
