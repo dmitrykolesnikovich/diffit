@@ -1,12 +1,20 @@
+const events = new Events();
+
 const context = {
     app: null,
     modelView: null,
 }
 
-// mvvm
+// bindings
 bind(context);
 moveFailure = bind(moveFailure)
 moveSuccess = bind(moveSuccess)
+
+// actions
+events.on('showLevel', showLevel)
+events.on('success', moveSuccess)
+events.on('failure', moveFailure)
+events.on('checkNextLevel', checkNextLevel)
 
 // app
 context.app = buildApplication({
@@ -17,4 +25,4 @@ context.app = buildApplication({
 });
 window.onresize = () => context.app.onResize();
 window.onorientationchange = () => context.app.onResize();
-goToLevel(5);
+events.emit('showLevel', 5);

@@ -1,24 +1,26 @@
-function goToLevel(levelId) {
+function showLevel(levelId) {
     loadLevel(levelId, (level) => {
         context.modelView = buildModelView(level);
     });
 }
 
-function moveFailure(event) {
+function moveFailure(point) {
     const {model} = context.modelView;
-    model.failurePoints.push(event);
+    model.failurePoints.push(point);
 }
 
-function moveSuccess(event) {
+function moveSuccess(slot) {
     const {model} = context.modelView;
-    model.successSlots.push(event.target);
-    delay(200, nextLevel);
+    model.successSlots.push(slot);
+    events.emit('checkNextLevel');
 }
 
-function nextLevel() {
+function checkNextLevel() {
     const {model} = context.modelView;
     if (model.isLevelCompleted()) {
-        alert(`Ура! Уровень ${model.level.id} пройден!`);
-        goToLevel((model.level.id + 1) % 5);
+        delay(200, () => {
+            alert(`Ура! Уровень ${model.level.id} пройден!`);
+            events.emit('showLevel', (model.level.id + 1) % 5);
+        });
     }
 }

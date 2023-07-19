@@ -37,12 +37,12 @@ function bindAction(action, complete) {
     }
 }
 
-function bindProperties(obj, complete) {
-    for (const prop of Object.keys(obj)) {
-        let oldValue = obj[prop];
+function bindProperties(object, complete) {
+    for (const prop of Object.keys(object)) {
+        let oldValue = object[prop];
         let newValue = oldValue;
 
-        Object.defineProperty(obj, prop, {
+        Object.defineProperty(object, prop, {
             configurable: true,
             enumerable: true,
             get: () => {
