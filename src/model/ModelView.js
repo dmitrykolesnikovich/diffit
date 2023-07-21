@@ -11,8 +11,7 @@ function buildModelView(level, layout) {
     return modelView;
 }
 
-function initializeModelView(modelView) {
-    const {model, view} = modelView;
+function initializeModelView({model, view}) {
     const {level} = model;
     const {layerA, layerB} = view;
 
