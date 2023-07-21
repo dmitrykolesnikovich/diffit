@@ -51,6 +51,20 @@ function bindViewModel(context) {
     }
 }
 
+function TargetAction(target, action) {
+    const {x = 0, y = 0, width, height} = target
+    const object = new PIXI.Container()
+    object.interactive = true;
+    object.hitArea = new PIXI.Rectangle(x, y, width, height);
+    object.on('pointerdown', (event) => {
+        event.stopPropagation();
+        const point = object.toLocal(event.global);
+        const args = {target, action, object, point};
+        engine.emit(action, args);
+    });
+    return object;
+}
+
 /*internals*/
 
 function _bindAction(action, complete) {

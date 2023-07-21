@@ -2,19 +2,6 @@ function GreenRectangle({x = 0, y = 0, width, height}) {
     return new PIXI.Graphics().lineStyle(4, 0x22ff22, 1).drawRoundedRect(x, y, width, height, 16);
 }
 
-function HitArea(target, action) {
-    const {x = 0, y = 0, width, height} = target
-    const area = new PIXI.Container()
-    area.interactive = true;
-    area.hitArea = new PIXI.Rectangle(x, y, width, height);
-    area.on('pointerdown', (event) => {
-        event.stopPropagation();
-        const point = area.toLocal(event.global);
-        action({...point, target, area});
-    });
-    return area;
-}
-
 function NamedLabel({paddingTop = 0, description, color}) {
     // 1. label
     const label = new PIXI.Text("", {

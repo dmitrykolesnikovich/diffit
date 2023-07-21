@@ -13,8 +13,9 @@ function moveFailure(event) {
     _showRedCrossOnMoveFailure(event);
 }
 
-function moveSuccess(slot) {
+function moveSuccess(event) {
     const {model} = engine.modelView;
+    const slot = event.target;
     model.successSlots.push(slot);
     _checkNextLevelOnMoveSuccess();
 }
@@ -22,8 +23,8 @@ function moveSuccess(slot) {
 /*internals*/
 
 function _showRedCrossOnMoveFailure(event) {
-    const layer = event.area.parent;
-    const redCross = new RedCross(event);
+    const layer = event.object.parent;
+    const redCross = new RedCross(event.point);
     layer.addChild(redCross);
     delay(220, () => layer.removeChild(redCross));
 }
@@ -33,7 +34,7 @@ function _checkNextLevelOnMoveSuccess() {
     if (model.isLevelCompleted()) {
         delay(220, () => {
             alert(`Ура! Уровень ${model.level.id} пройден!`);
-            engine.emit('showLevel', (model.level.id + 1) % 5);
+            engine.emit('showLevel', model.level.id % 5 + 1);
         });
     }
 }
