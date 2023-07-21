@@ -1,4 +1,9 @@
-class MvvmEngine {
+class ModelView {
+    model;
+    view;
+}
+
+class MVVM {
 
     modelView = null;
     _viewModel = null;
@@ -35,7 +40,7 @@ class MvvmEngine {
 
 }
 
-const engine = new MvvmEngine();
+const engine = new MVVM();
 
 function registerViewModel(viewModel) {
     engine._viewModel = viewModel;

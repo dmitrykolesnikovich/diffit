@@ -1,8 +1,3 @@
-class ModelView {
-    model;
-    view;
-}
-
 function buildModelView(level, layout) {
     const modelView = new ModelView();
     modelView.model = buildModel(level);
