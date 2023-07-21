@@ -2,7 +2,8 @@ function bind(object) {
 
     function updateViewModelIfExists() {
         if (context.modelView != null) {
-            updateViewModel();
+            updateViewModel(context.modelView);
+            window.dispatchEvent(new Event('resize'));
         }
     }
 
