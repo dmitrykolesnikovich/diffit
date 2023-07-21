@@ -3,14 +3,14 @@ class Model {
     level;
     mistakesCount = 0;
     successSlots = [];
-    total = 0;
+    maxScore = 0;
 
     get score() {
         return this.successSlots.length;
     }
 
-    isLevelCompleted() {
-        return this.score >= this.total;
+    hasMaxScore() {
+        return this.score >= this.maxScore;
     }
 
 }
@@ -18,6 +18,6 @@ class Model {
 function buildModel(level) {
     const model = new Model();
     model.level = level;
-    model.total = level.slots.length;
+    model.maxScore = level.slots.length;
     return model;
 }

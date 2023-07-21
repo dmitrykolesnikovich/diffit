@@ -24,6 +24,6 @@ function setupViewModel({model, view}) {
     }
 
     // status
-    scoreLabel.setupText(`${model.score}/${model.total}`);
+    scoreLabel.setupText(`${model.score}/${model.maxScore}`);
     mistakesLabel.setupText(model.mistakesCount);
 }

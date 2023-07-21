@@ -31,7 +31,7 @@ function _showRedCrossOnMoveFailure(event) {
 
 function _checkNextLevelOnMoveSuccess() {
     const {model} = engine.modelView;
-    if (model.isLevelCompleted()) {
+    if (model.hasMaxScore()) {
         delay(220, () => {
             alert(`Ура! Уровень ${model.level.id} пройден!`);
             engine.emit('showLevel', model.level.id % 5 + 1);
