@@ -10,20 +10,17 @@ function delay(millis, runnable, scope, ...args) {
     context.app.ticker.add(task);
 }
 
-function resizeApplication(ratio, padding) {
-    const {model, view} = engine.modelView;
-    const canvas = context.app.view;
+function resizeCanvas(canvas, ratio, padding) {
     const {width, height} = fitDimension(ratio, padding);
-
-    // 3. apply
     canvas.style.width = `${width}px`
     canvas.style.height = `${height}px`
     canvas.width = width * window.devicePixelRatio;
     canvas.height = height * window.devicePixelRatio;
 
+    const {model, view} = engine.modelView;
     view.x = canvas.width / 2;
     view.y = canvas.height / 2;
-    view.scale.set(0.77 * (canvas.width / (model.level.isLandscape ? model.level.width : 2 * model.level.width))); // quickfix todo drop
+    view.scale.set(0.88 * (canvas.width / (model.level.isLandscape ? model.level.width : 2 * model.level.width))); // quickfix todo drop
 }
 
 function fitDimension(ratio, padding = 0) {

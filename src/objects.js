@@ -15,7 +15,7 @@ function HitArea(target, action) {
     return area;
 }
 
-function NamedLabel({paddingTop, description, color}) {
+function NamedLabel({paddingTop = 0, description, color}) {
     // 1. label
     const label = new PIXI.Text("", {
         fontFamily: 'Filmotype Major', fontSize: 44, fill: color, align: 'right'

@@ -15,8 +15,8 @@ window.onload = function () {
         resizeTo: canvas,
         sharedTicker: true,
     });
-    window.onresize = () => resizeApplication(RATIO, PADDING);
-    window.onorientationchange = () => resizeApplication(RATIO, PADDING);
+    window.onresize = () => resizeCanvas(canvas, RATIO, PADDING);
+    window.onorientationchange = () => resizeCanvas(canvas, RATIO, PADDING);
 
     engine.emit('showLevel', 5);
 }
