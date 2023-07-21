@@ -1,6 +1,6 @@
-engine.on('showLevel', showLevel);
-engine.on('failure', moveFailure);
-engine.on('success', moveSuccess);
+engine.on('showLevel', bindViewModel(showLevel));
+engine.on('failure', bindViewModel(moveFailure));
+engine.on('success', bindViewModel(moveSuccess));
 
 async function showLevel(levelId) {
     const level = await loadLevel(levelId);

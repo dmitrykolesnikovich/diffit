@@ -21,7 +21,7 @@ class MvvmEngine {
         const actions = this._actionMap[event];
         if (actions != null) {
             for (let action of actions) {
-                _executeAction(action, this._updateViewModel.bind(this), ...args);
+                action(...args);
             }
         }
     }
@@ -37,21 +37,37 @@ class MvvmEngine {
 
 const engine = new MvvmEngine();
 
-function registerModelViewContext(context) {
-    _bindProperties(context, engine._updateViewModel.bind(engine));
-    return context;
-}
-
 function registerViewModel(viewModel) {
     engine._viewModel = viewModel;
 }
 
+function bindViewModel(context) {
+    if (context instanceof Function) {
+        return _bindAction(context, engine._updateViewModel.bind(engine));
+    } else {
+        _bindProperties(context, engine._updateViewModel.bind(engine));
+        return context;
+    }
+}
+
 /*internals*/
+
+function _bindAction(action, complete) {
+    const isFunctionAsynchronous = action.constructor.name === 'AsyncFunction';
+    if (isFunctionAsynchronous) {
+        return function (...args) {
+            action(...args).then(complete);
+        }
+    } else {
+        return function (...args) {
+            action(...args);
+            complete()
+        }
+    }
+}
 
 function _bindProperties(object, complete) {
     for (const prop of Object.keys(object)) {
-        if (prop.startsWith('_')) continue;
-
         let oldValue = object[prop];
         let newValue = oldValue;
 
@@ -71,15 +87,5 @@ function _bindProperties(object, complete) {
                 complete();
             },
         });
-    }
-}
-
-function _executeAction(action, complete, ...args) {
-    const isFunctionAsynchronous = action.constructor.name === 'AsyncFunction';
-    if (isFunctionAsynchronous) {
-        action(...args).then(complete);
-    } else {
-        action(...args);
-        complete()
     }
 }
