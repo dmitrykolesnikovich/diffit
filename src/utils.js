@@ -17,10 +17,12 @@ function resizeCanvas(canvas, ratio, padding) {
     canvas.width = width * window.devicePixelRatio;
     canvas.height = height * window.devicePixelRatio;
 
+    // >> quickfix todo replace with grid layout
     const {model, view} = engine.modelView;
     view.x = canvas.width / 2;
     view.y = canvas.height / 2;
-    view.scale.set(0.88 * (canvas.width / (model.level.isLandscape ? model.level.width : 2 * model.level.width))); // quickfix todo drop
+    view.scale.set(0.88 * (canvas.width / (model.level.isLandscape ? model.level.width : 2 * model.level.width)));
+    // <<
 }
 
 function fitDimension(ratio, padding = 0) {

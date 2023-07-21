@@ -15,7 +15,7 @@ function buildView(level, layout) {
     const scoreLabel = statusPanel.addChild(NamedLabel({ description: `Отличий найдено: `,  color: 0x22ff22 }));
     const mistakesLabel = statusPanel.addChild(NamedLabel({ description: `Ошибок: `, color: 0xff2222 }));
     const titleLabel = mainView.addChild(new PIXI.Text(`Уровень ${level.id}`, { fontFamily: 'Filmotype Major', fontSize: 120, fill: 'black', align: 'center' }));
-    // setupGridLayout(view, layout({mainView, layerA, layerB, statusPanel, scoreLabel, mistakesLabel, titleLabel}));
+    // setupGridLayout(view, layout({mainView, layerA, layerB, statusPanel, scoreLabel, mistakesLabel, titleLabel})); // todo uncomment
 
     // >> todo drop
     const padding = 4;
