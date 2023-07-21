@@ -16,10 +16,10 @@ function initializeModelView(modelView) {
     const {level} = model;
     const {layerA, layerB} = view;
 
-    layerA.addChild(new HitArea(level, (event) => controller.emit('failure', event)));
-    layerB.addChild(new HitArea(level, (event) => controller.emit('failure', event)));
+    layerA.addChild(new HitArea(level, (event) => engine.emit('failure', event)));
+    layerB.addChild(new HitArea(level, (event) => engine.emit('failure', event)));
     for (let slot of level.slots) {
-        layerA.addChild(new HitArea(slot, (event) => controller.emit('success', event.target)));
-        layerB.addChild(new HitArea(slot, (event) => controller.emit('success', event.target)));
+        layerA.addChild(new HitArea(slot, (event) => engine.emit('success', event.target)));
+        layerB.addChild(new HitArea(slot, (event) => engine.emit('success', event.target)));
     }
 }

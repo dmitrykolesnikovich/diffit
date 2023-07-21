@@ -1,3 +1,5 @@
+engine.on('updateViewModel', updateViewModel);
+
 function updateViewModel(modelView) {
     resetViewModel(modelView);
     setupViewModel(modelView);
