@@ -1,8 +1,3 @@
-class ModelView {
-    model;
-    view;
-}
-
 class MVVM {
 
     modelView = null;
@@ -10,7 +5,7 @@ class MVVM {
     _actionMap = {};
 
     constructor() {
-        _bindProperties(this, this._updateViewModel.bind(this));
+        _bindProperties(this, this.updateViewModel.bind(this));
     }
 
     on(event, action) {
@@ -31,7 +26,7 @@ class MVVM {
         }
     }
 
-    _updateViewModel() {
+    updateViewModel() {
         if (this.modelView != null) {
             this._viewModel(this.modelView);
             window.dispatchEvent(new Event('resize'));
@@ -47,10 +42,11 @@ function registerViewModel(viewModel) {
 }
 
 function bindViewModel(context) {
+    const updateViewModel = engine.updateViewModel.bind(engine);
     if (context instanceof Function) {
-        return _bindAction(context, engine._updateViewModel.bind(engine));
+        return _bindAction(context, updateViewModel);
     } else {
-        _bindProperties(context, engine._updateViewModel.bind(engine));
+        _bindProperties(context, updateViewModel);
         return context;
     }
 }
