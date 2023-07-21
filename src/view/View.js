@@ -21,9 +21,22 @@ function initializeView(view, level) {
     const layerA = buildLayer(level, "LayerA");
     const layerB = buildLayer(level, "LayerB");
     const statusPanel = new PIXI.Container();
-    const scoreLabel = statusPanel.addChild(LabelWithDescription({ paddingTop: 64, description: `Отличий найдено: `, color: 0x22ff22 }));
-    const mistakesLabel = statusPanel.addChild(LabelWithDescription({ paddingTop: 128, description: `Ошибок: `, color: 0xff2222 }));
-    const titleLabel = new PIXI.Text(`Уровень ${level.id}`, { fontFamily: 'Filmotype Major', fontSize: 120, fill: 'black', align: 'center' });
+    const scoreLabel = statusPanel.addChild(LabelWithDescription({
+        paddingTop: 64,
+        description: `Отличий найдено: `,
+        color: 0x22ff22
+    }));
+    const mistakesLabel = statusPanel.addChild(LabelWithDescription({
+        paddingTop: 128,
+        description: `Ошибок: `,
+        color: 0xff2222
+    }));
+    const titleLabel = new PIXI.Text(`Уровень ${level.id}`, {
+        fontFamily: 'Filmotype Major',
+        fontSize: 120,
+        fill: 'black',
+        align: 'center'
+    });
 
     // >> todo replace with Grid
     const padding = 4;
