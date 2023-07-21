@@ -1,6 +1,7 @@
 class MvvmEngine {
 
-    _context = null;
+    _modelViewContext = null;
+    _viewModelContext = null;
     actionMap = {};
 
     on(event, action) {
@@ -16,8 +17,16 @@ class MvvmEngine {
         const actions = this.actionMap[event];
         if (actions != null) {
             for (let action of actions) {
-                action(...args);
+                _executeAction(action, this._updateViewModel.bind(this), ...args);
             }
+        }
+    }
+
+    _updateViewModel() {
+        const modelView = this._modelViewContext.modelView;
+        if (modelView != null) {
+            this._viewModelContext.call(null, modelView)
+            window.dispatchEvent(new Event('resize'));
         }
     }
 
@@ -25,41 +34,17 @@ class MvvmEngine {
 
 const engine = new MvvmEngine();
 
-function bind(context) {
-    if (context instanceof Function) {
-        return _bindAction(context, _updateViewModel)
-    } else {
-        _bindProperties(context, _updateViewModel)
-        if (context.modelView !== undefined) {
-            engine._context = context;
-        }
-        return context;
-    }
+function registerModelViewContext(context) {
+    _bindProperties(context, engine._updateViewModel.bind(engine))
+    engine._modelViewContext = context;
+    return context;
+}
+
+function registerViewModel(viewModel) {
+    engine._viewModelContext = viewModel;
 }
 
 /*internals*/
-
-function _updateViewModel() {
-    const context = engine._context;
-    if (context.modelView != null) {
-        engine.emit('updateViewModel', context.modelView)
-        window.dispatchEvent(new Event('resize'));
-    }
-}
-
-function _bindAction(action, complete) {
-    const isFunctionAsynchronous = action.constructor.name === 'AsyncFunction';
-    if (isFunctionAsynchronous) {
-        return function (...args) {
-            action(...args).then(complete);
-        }
-    } else {
-        return function (...args) {
-            action(...args);
-            complete()
-        }
-    }
-}
 
 function _bindProperties(object, complete) {
     for (const prop of Object.keys(object)) {
@@ -82,5 +67,15 @@ function _bindProperties(object, complete) {
                 complete();
             },
         });
+    }
+}
+
+function _executeAction(action, complete, ...args) {
+    const isFunctionAsynchronous = action.constructor.name === 'AsyncFunction';
+    if (isFunctionAsynchronous) {
+        action(...args).then(complete);
+    } else {
+        action(...args);
+        complete()
     }
 }

@@ -1,6 +1,6 @@
-engine.on('updateViewModel', updateViewModel);
+registerViewModel(ViewModel);
 
-function updateViewModel(modelView) {
+function ViewModel(modelView) {
     resetViewModel(modelView);
     setupViewModel(modelView);
 }

@@ -1,4 +1,4 @@
-const context = bind({
+const context = registerModelViewContext({
     app: null,
     modelView: null,
 });
