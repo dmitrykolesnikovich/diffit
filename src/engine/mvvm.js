@@ -56,11 +56,11 @@ function TargetAction(target, action) {
     const object = new PIXI.Container()
     object.interactive = true;
     object.hitArea = new PIXI.Rectangle(x, y, width, height);
-    object.on('pointerdown', (event) => {
-        event.stopPropagation();
-        const point = object.toLocal(event.global);
-        const args = {target, action, object, point};
-        engine.emit(action, args);
+    object.on('pointerdown', (pointer) => {
+        pointer.stopPropagation();
+        const point = object.toLocal(pointer.global);
+        const event = {target, action, object, point};
+        engine.emit(action, event);
     });
     return object;
 }
