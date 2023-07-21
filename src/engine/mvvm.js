@@ -1,7 +1,7 @@
 class MvvmEngine {
 
     _modelViewContext = null;
-    _viewModelContext = null;
+    _viewModel = null;
     actionMap = {};
 
     on(event, action) {
@@ -25,7 +25,7 @@ class MvvmEngine {
     _updateViewModel() {
         const modelView = this._modelViewContext.modelView;
         if (modelView != null) {
-            this._viewModelContext.call(null, modelView)
+            this._viewModel.call(null, modelView)
             window.dispatchEvent(new Event('resize'));
         }
     }
@@ -41,7 +41,7 @@ function registerModelViewContext(context) {
 }
 
 function registerViewModel(viewModel) {
-    engine._viewModelContext = viewModel;
+    engine._viewModel = viewModel;
 }
 
 /*internals*/
