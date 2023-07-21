@@ -1,4 +1,4 @@
-const LevelLayout = {
+const LevelGridLayout = {
     'mainView': {},
     'layerA': {},
     'layerB': {},

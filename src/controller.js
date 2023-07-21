@@ -1,14 +1,14 @@
 const controller = new EventBus();
 
 controller.on('showLevel', bind(showLevel));
-controller.on('success', bind(moveSuccess));
 controller.on('failure', bind(moveFailure));
+controller.on('success', bind(moveSuccess));
 
 /*actions*/
 
 async function showLevel(levelId) {
     const level = await loadLevel(levelId);
-    context.modelView = buildModelView(level, LevelLayout);
+    context.modelView = buildModelView(level, LevelGridLayout);
 }
 
 function moveFailure(event) {
