@@ -4,17 +4,17 @@ engine.on('success', moveSuccess);
 
 async function showLevel(levelId) {
     const level = await loadLevel(levelId);
-    context.modelView = buildModelView(level, LevelGridLayout);
+    engine.modelView = buildModelView(level, LevelGridLayout);
 }
 
 function moveFailure(event) {
-    const {model} = context.modelView;
+    const {model} = engine.modelView;
     model.mistakesCount++;
     _showRedCrossOnMoveFailure(event);
 }
 
 function moveSuccess(slot) {
-    const {model} = context.modelView;
+    const {model} = engine.modelView;
     model.successSlots.push(slot);
     _checkNextLevelOnMoveSuccess();
 }
@@ -29,7 +29,7 @@ function _showRedCrossOnMoveFailure(event) {
 }
 
 function _checkNextLevelOnMoveSuccess() {
-    const {model} = context.modelView;
+    const {model} = engine.modelView;
     if (model.isLevelCompleted()) {
         delay(220, () => {
             alert(`Ура! Уровень ${model.level.id} пройден!`);

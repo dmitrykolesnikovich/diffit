@@ -1,7 +1,7 @@
-const LevelGridLayout = {
-    'mainView': {},
-    'layerA': {},
-    'layerB': {},
-    'statusPanel': {},
-    'titleLabel': {},
-}
+const LevelGridLayout = ({mainView, layerA, layerB, scoreLabel, mistakesLabel}) => ({
+    mainView: {},
+    layerA: {},
+    layerB: {},
+    statusPanel: {},
+    titleLabel: {},
+});

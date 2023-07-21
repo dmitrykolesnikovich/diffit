@@ -11,7 +11,7 @@ function delay(millis, runnable, scope, ...args) {
 }
 
 function resizeApplication(ratio, padding) {
-    const {model, view} = context.modelView;
+    const {model, view} = engine.modelView;
     const canvas = context.app.view;
     const {width, height} = fitDimension(ratio, padding);
 

@@ -7,38 +7,17 @@ class View extends PIXI.Container {
 
 function buildView(level, layout) {
     const view = new View();
-    const {layerA, layerB, scoreLabel, mistakesLabel} = initializeView(view, level);
-    view.layerA = layerA;
-    view.layerB = layerB;
-    view.scoreLabel = scoreLabel;
-    view.mistakesLabel = mistakesLabel;
-    setupGridLayout(view, layout);
-    return view;
-}
 
-function initializeView(view, level) {
     const mainView = view.addChild(new PIXI.Container());
     const layerA = buildLayer(level, "LayerA");
     const layerB = buildLayer(level, "LayerB");
     const statusPanel = new PIXI.Container();
-    const scoreLabel = statusPanel.addChild(LabelWithDescription({
-        paddingTop: 64,
-        description: `Отличий найдено: `,
-        color: 0x22ff22
-    }));
-    const mistakesLabel = statusPanel.addChild(LabelWithDescription({
-        paddingTop: 128,
-        description: `Ошибок: `,
-        color: 0xff2222
-    }));
-    const titleLabel = new PIXI.Text(`Уровень ${level.id}`, {
-        fontFamily: 'Filmotype Major',
-        fontSize: 120,
-        fill: 'black',
-        align: 'center'
-    });
+    const scoreLabel = statusPanel.addChild(NamedLabel({ paddingTop: 64, description: `Отличий найдено: `,  color: 0x22ff22 }));
+    const mistakesLabel = statusPanel.addChild(NamedLabel({ paddingTop: 128, description: `Ошибок: `, color: 0xff2222 }));
+    const titleLabel = new PIXI.Text(`Уровень ${level.id}`, { fontFamily: 'Filmotype Major', fontSize: 120, fill: 'black', align: 'center' });
+    // setupGridLayout(view, layout({mainView, layerA, layerB, statusPanel, scoreLabel, mistakesLabel, titleLabel}));
 
-    // >> todo replace with Grid
+    // >> todo drop
     const padding = 4;
     mainView.addChild(layerA);
     mainView.addChild(layerB);
@@ -65,5 +44,9 @@ function initializeView(view, level) {
     view.pivot.y = mainView.height / 2;
     // <<
 
-    return {layerA, layerB, scoreLabel, mistakesLabel};
+    view.layerA = layerA;
+    view.layerB = layerB;
+    view.scoreLabel = scoreLabel;
+    view.mistakesLabel = mistakesLabel;
+    return view;
 }

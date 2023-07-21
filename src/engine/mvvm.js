@@ -1,19 +1,24 @@
 class MvvmEngine {
 
+    modelView = null;
     _viewModel = null;
-    actionMap = {};
+    _actionMap = {};
+
+    constructor() {
+        _bindProperties(this, this._updateViewModel.bind(this));
+    }
 
     on(event, action) {
-        let actions = this.actionMap[event];
+        let actions = this._actionMap[event];
         if (actions == null) {
             actions = [];
-            this.actionMap[event] = actions;
+            this._actionMap[event] = actions;
         }
         actions.push(action);
     }
 
     emit(event, ...args) {
-        const actions = this.actionMap[event];
+        const actions = this._actionMap[event];
         if (actions != null) {
             for (let action of actions) {
                 _executeAction(action, this._updateViewModel.bind(this), ...args);
@@ -22,9 +27,8 @@ class MvvmEngine {
     }
 
     _updateViewModel() {
-        const modelView = context.modelView;
-        if (modelView != null) {
-            this._viewModel(modelView);
+        if (this.modelView != null) {
+            this._viewModel(this.modelView);
             window.dispatchEvent(new Event('resize'));
         }
     }
@@ -33,10 +37,10 @@ class MvvmEngine {
 
 const engine = new MvvmEngine();
 
-const context = _registerModelViewContext({
-    app: null,
-    modelView: null,
-});
+function registerModelViewContext(context) {
+    _bindProperties(context, engine._updateViewModel.bind(engine));
+    return context;
+}
 
 function registerViewModel(viewModel) {
     engine._viewModel = viewModel;
@@ -44,13 +48,10 @@ function registerViewModel(viewModel) {
 
 /*internals*/
 
-function _registerModelViewContext(context) {
-    _bindProperties(context, engine._updateViewModel.bind(engine))
-    return context;
-}
-
 function _bindProperties(object, complete) {
     for (const prop of Object.keys(object)) {
+        if (prop.startsWith('_')) continue;
+
         let oldValue = object[prop];
         let newValue = oldValue;
 

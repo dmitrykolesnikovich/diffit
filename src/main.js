@@ -1,3 +1,7 @@
+const context = registerModelViewContext({
+    app: null
+});
+
 window.onload = function () {
     const PADDING = 16;
     const RATIO = 9.0 / 16.0;
