@@ -8,7 +8,7 @@ controller.on('failure', bind(moveFailure));
 
 async function showLevel(levelId) {
     const level = await loadLevel(levelId);
-    context.modelView = buildModelView(level);
+    context.modelView = buildModelView(level, LevelLayout);
 }
 
 function moveFailure(event) {

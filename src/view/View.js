@@ -5,14 +5,14 @@ class View extends PIXI.Container {
     mistakesLabel;
 }
 
-function buildView(level) {
+function buildView(level, layout) {
     const view = new View();
     const {layerA, layerB, scoreLabel, mistakesLabel} = initializeView(view, level);
     view.layerA = layerA;
     view.layerB = layerB;
     view.scoreLabel = scoreLabel;
     view.mistakesLabel = mistakesLabel;
-    setupGridLayout(view, ViewLayout);
+    setupGridLayout(view, layout);
     return view;
 }
 

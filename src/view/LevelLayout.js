@@ -1,4 +1,4 @@
-const ViewLayout = {
+const LevelLayout = {
     'mainView': {},
     'layerA': {},
     'layerB': {},

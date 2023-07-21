@@ -3,10 +3,10 @@ class ModelView {
     view;
 }
 
-function buildModelView(level) {
+function buildModelView(level, layout) {
     const modelView = new ModelView();
     modelView.model = buildModel(level);
-    modelView.view = buildView(level);
+    modelView.view = buildView(level, layout);
     initializeModelView(modelView)
     return modelView;
 }
