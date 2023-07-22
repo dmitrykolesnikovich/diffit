@@ -4,7 +4,7 @@ engine.on('success', bindViewModel(moveSuccess));
 
 async function showLevel(event) {
     const level = await loadLevel(event.levelId);
-    engine.modelView = buildModelView(level, LevelLayout);
+    engine.modelView = buildModelView(level, Layout);
 }
 
 function moveFailure(event) {

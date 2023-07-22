@@ -1,7 +1,9 @@
-const LevelLayout = ({mainView, layerA, layerB, scoreLabel, mistakesLabel}) => ({
+const Layout = ({mainView, layerA, layerB, statusPanel, scoreLabel, mistakesLabel, titleLabel}) => ({
     mainView: {},
     layerA: {},
     layerB: {},
     statusPanel: {},
+    scoreLabel: {},
+    mistakesLabel: {},
     titleLabel: {},
 });
