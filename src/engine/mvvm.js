@@ -82,20 +82,19 @@ function _bindAction(action, complete) {
 }
 
 function _bindProperties(object, complete) {
-    for (const prop of Object.keys(object)) {
-        let oldValue = object[prop];
-        let newValue = oldValue;
+    for (const key of Object.keys(object)) {
+        if (key.startsWith('_')) continue;
 
-        Object.defineProperty(object, prop, {
+        let oldValue = object[key];
+        let newValue = oldValue;
+        Object.defineProperty(object, key, {
             configurable: true,
             enumerable: true,
             get: () => {
                 return newValue;
             },
             set: (value) => {
-                if (value === newValue) {
-                    return;
-                }
+                if (value === newValue) return;
 
                 oldValue = newValue;
                 newValue = value;
