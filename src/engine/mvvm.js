@@ -8,26 +8,27 @@ class MVVM {
         _bindProperties(this, this.updateViewModel.bind(this));
     }
 
-    on(event, action) {
-        let actions = this._actionMap[event];
-        if (actions == null) {
-            actions = [];
-            this._actionMap[event] = actions;
+    on(action, listener) {
+        let listeners = this._actionMap[action];
+        if (listeners == null) {
+            listeners = [];
+            this._actionMap[action] = listeners;
         }
-        actions.push(action);
+        listeners.push(listener);
     }
 
-    emit(event, ...args) {
-        const actions = this._actionMap[event];
-        if (actions != null) {
-            for (let action of actions) {
-                action(...args);
+    emit(action, ...args) {
+        const listeners = this._actionMap[action];
+        if (listeners != null) {
+            for (let listener of listeners) {
+                listener(...args);
             }
         }
     }
 
     updateViewModel() {
         if (this.modelView != null) {
+            // noinspection JSValidateTypes
             this._viewModel(this.modelView);
             window.dispatchEvent(new Event('resize'));
         }
@@ -76,7 +77,7 @@ function _bindAction(action, complete) {
     } else {
         return function (...args) {
             action(...args);
-            complete()
+            complete();
         }
     }
 }
