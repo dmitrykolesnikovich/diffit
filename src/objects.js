@@ -5,14 +5,20 @@ function GreenRectangle({x = 0, y = 0, width, height}) {
 function NamedLabel({paddingTop = 0, description, color}) {
     // 1. label
     const label = new PIXI.Text("", {
-        fontFamily: 'Filmotype Major', fontSize: 44, fill: color, align: 'right'
+        fontFamily: 'Filmotype Major',
+        fontSize: 44,
+        fill: color,
+        align: 'right'
     });
     label.anchor.set(1, 1);
-    label.y = paddingTop
+    label.y = paddingTop;
 
     // 2. description
     const descriptionLabel = label.addChild(new PIXI.Text(description, {
-        fontFamily: 'Filmotype Major', fontSize: 44, fill: 'black', align: 'right'
+        fontFamily: 'Filmotype Major',
+        fontSize: 44,
+        fill: 'black',
+        align: 'right'
     }));
     descriptionLabel.anchor.set(1, 1);
     descriptionLabel.position.x = -label.width;

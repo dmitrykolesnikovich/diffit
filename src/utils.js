@@ -1,13 +1,13 @@
-function delay(millis, runnable, scope, ...args) {
-    let current = millis;
-    const task = () => {
-        current -= context.app.ticker.deltaMS;
-        if (current <= 0) {
-            runnable.call(scope, ...args);
-            context.app.ticker.remove(task);
+function delay(millis, task, ...args) {
+    let currentMillis = millis;
+    const delayedTask = () => {
+        currentMillis -= context.app.ticker.deltaMS;
+        if (currentMillis <= 0) {
+            task(...args);
+            context.app.ticker.remove(delayedTask);
         }
     };
-    context.app.ticker.add(task);
+    context.app.ticker.add(delayedTask);
 }
 
 function resizeCanvas(canvas, ratio, padding) {

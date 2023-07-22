@@ -20,5 +20,5 @@ async function loadLevel(levelId) {
     for (const slot of level.slots) {
         await loadSlotTexture(slot);
     }
-    return level
+    return level;
 }
