@@ -9,12 +9,12 @@ class MVVM {
     }
 
     on(action, listener) {
-        let listeners = this._actionMap[action];
-        if (listeners == null) {
-            listeners = [];
-            this._actionMap[action] = listeners;
+        const listeners = this._actionMap[action];
+        if (listeners != null) {
+            listeners.push(listener);
+        } else {
+            this._actionMap[action] = [listener];
         }
-        listeners.push(listener);
     }
 
     emit(action, event) {
