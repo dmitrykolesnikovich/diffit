@@ -1,10 +1,12 @@
 class Layer extends PIXI.Container {
+    id;
     background;
     foreground;
 }
 
 function buildLayer(level, layerId) {
     const layer = new Layer();
+    layer.id = layerId;
     layer.background = layer.addChild(LayerBackground(level, layerId));
     layer.foreground = layer.addChild(new PIXI.Container());
     return layer;
