@@ -5,7 +5,7 @@ class MVVM {
     _actionMap = {};
 
     constructor() {
-        _bindProperties(this, this._updateViewModel.bind(this));
+        _bindPublicProperties(this, this._updateViewModel.bind(this));
     }
 
     on(action, listener) {
@@ -47,7 +47,7 @@ function bindViewModel(context) {
     if (context instanceof Function) {
         return _bindAction(context, updateViewModel);
     } else {
-        _bindProperties(context, updateViewModel);
+        _bindPublicProperties(context, updateViewModel);
         return context;
     }
 }
@@ -82,7 +82,7 @@ function _bindAction(action, complete) {
     }
 }
 
-function _bindProperties(object, complete) {
+function _bindPublicProperties(object, complete) {
     for (const key of Object.keys(object)) {
         if (key.startsWith('_')) continue;
 
