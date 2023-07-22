@@ -69,8 +69,8 @@ function TargetAction(target, action) {
 /*internals*/
 
 function _bindAction(action, complete) {
-    const isFunctionAsynchronous = action.constructor.name === 'AsyncFunction';
-    if (isFunctionAsynchronous) {
+    const isAsyncFunction = action.constructor.name === 'AsyncFunction';
+    if (isAsyncFunction) {
         return function (...args) {
             action(...args).then(complete);
         }
