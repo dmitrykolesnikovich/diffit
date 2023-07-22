@@ -2,8 +2,8 @@ engine.on('showLevel', bindViewModel(showLevel));
 engine.on('failure', bindViewModel(moveFailure));
 engine.on('success', bindViewModel(moveSuccess));
 
-async function showLevel(levelId) {
-    const level = await loadLevel(levelId);
+async function showLevel(event) {
+    const level = await loadLevel(event.levelId);
     engine.modelView = buildModelView(level, LevelLayout);
 }
 
@@ -34,7 +34,7 @@ function _checkNextLevelOnMoveSuccess() {
     if (model.hasMaxScore()) {
         delay(220, () => {
             alert(`Ура! Уровень ${model.level.id} пройден!`);
-            engine.emit('showLevel', model.level.id % 5 + 1);
+            engine.emit('showLevel', {levelId: model.level.id % 5 + 1});
         });
     }
 }

@@ -17,11 +17,11 @@ class MVVM {
         listeners.push(listener);
     }
 
-    emit(action, ...args) {
+    emit(action, event) {
         const listeners = this._actionMap[action];
         if (listeners != null) {
             for (let listener of listeners) {
-                listener(...args);
+                listener(event);
             }
         }
     }

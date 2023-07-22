@@ -18,5 +18,5 @@ window.onload = function () {
     window.onresize = () => resizeCanvas(canvas, RATIO, PADDING);
     window.onorientationchange = () => resizeCanvas(canvas, RATIO, PADDING);
 
-    engine.emit('showLevel', 5);
+    engine.emit('showLevel', {levelId: 5});
 }
