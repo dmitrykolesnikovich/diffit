@@ -5,7 +5,7 @@ class MVVM {
     _actionMap = {};
 
     constructor() {
-        _bindProperties(this, this.updateViewModel.bind(this));
+        _bindProperties(this, this._updateViewModel.bind(this));
     }
 
     on(action, listener) {
@@ -26,7 +26,7 @@ class MVVM {
         }
     }
 
-    updateViewModel() {
+    _updateViewModel() {
         if (this.modelView != null) {
             // noinspection JSValidateTypes
             this._viewModel(this.modelView);
@@ -43,7 +43,7 @@ function registerViewModel(viewModel) {
 }
 
 function bindViewModel(context) {
-    const updateViewModel = engine.updateViewModel.bind(engine);
+    const updateViewModel = engine._updateViewModel.bind(engine);
     if (context instanceof Function) {
         return _bindAction(context, updateViewModel);
     } else {
