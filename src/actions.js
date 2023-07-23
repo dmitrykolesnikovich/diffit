@@ -3,8 +3,10 @@ engine.on('failure', bindViewModel(moveFailure));
 engine.on('success', bindViewModel(moveSuccess));
 
 async function showLevel(event) {
+    context.app.view.style.visibility = 'hidden';
     const level = await loadLevel(event.levelId);
     engine.modelView = buildModelView(level, Layout);
+    context.app.view.style.visibility = 'visible';
 }
 
 function moveFailure(event) {
