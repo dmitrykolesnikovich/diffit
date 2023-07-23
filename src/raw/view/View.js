@@ -66,8 +66,12 @@ function buildView(level) {
     imagesContainer.classList.remove('images-container--v');
     if (level.width < level.height) elements.imagesContainer.classList.add('images-container--v');
 
+    h1.innerHTML = `Уровень: ${level.id}`;
+
     contentContainer.containerA = containerA;
     contentContainer.containerB = containerB;
+    contentContainer.scoreSuccess = scoreSuccess;
+    contentContainer.scoreFail = scoreFail;
 
     return contentContainer;
 }

@@ -11,7 +11,7 @@ function resetViewModel({model, view}) {
 }
 
 function setupViewModel({model, view}) {
-    const {containerA, containerB, scoreLabel, mistakesLabel} = view;
+    const {containerA, containerB, scoreSuccess, scoreFail} = view;
     context.root.appendChild(view);
 
     // success
@@ -19,4 +19,8 @@ function setupViewModel({model, view}) {
         containerA.appendChild(createSuccessMark(slot));
         containerB.appendChild(createSuccessMark(slot));
     }
+
+    // status
+    scoreSuccess.innerHTML = `${model.score}/${model.maxScore}`;
+    scoreFail.innerHTML = model.mistakesCount;
 }
