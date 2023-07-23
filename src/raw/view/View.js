@@ -66,5 +66,8 @@ function buildView(level) {
     imagesContainer.classList.remove('images-container--v');
     if (level.width < level.height) elements.imagesContainer.classList.add('images-container--v');
 
+    contentContainer.containerA = containerA;
+    contentContainer.containerB = containerB;
+
     return contentContainer;
 }
