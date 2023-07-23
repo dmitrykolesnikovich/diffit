@@ -10,43 +10,20 @@ async function showLevel(event) {
 }
 
 function moveSuccess(event) {
-    console.log('success');
+    const {model} = engine.modelView;
+    const slot = event.target;
+    model.successSlots.push(slot);
 }
 
 function moveFailure(event) {
-    console.log('failure');
+    const {model} = engine.modelView;
+    model.mistakesCount++;
+    _showRedCrossOnMoveFailure(event);
 }
 
-const drawSuccessBox = (x,y,w,h) => {
-    marks.push(addSuccessMark(elements.containerA, x,y,w,h));
-    marks.push(addSuccessMark(elements.containerB, x,y,w,h));
-}
-
-const drawFailBox = (x, y) => {
-    marks.push(addFailMark(elements.containerA, x, y));
-    marks.push(addFailMark(elements.containerB, x, y));
-}
-
-function createMark(x, y, w, h) {
-    const mark = document.createElement('div');
-    mark.classList.add('mark');
-    mark.style.width = w + 'px';
-    mark.style.height = h + 'px';
-    mark.style.left = (x) + 'px';
-    mark.style.top = (y) + 'px';
-    return mark;
-}
-
-function addSuccessMark(root, x, y, w, h) {
-    const mark = createMark(x, y, w, h);
-    mark.classList.add('mark--success');
-    root.appendChild(mark);
-    return mark;
-}
-
-function addFailMark(root, x, y) {
-    const mark = createMark(x-50, y-50, 100, 100);
-    mark.classList.add('mark--fail');
-    root.appendChild(mark);
-    return mark;
+function _showRedCrossOnMoveFailure(event) {
+    const layer = event.object.parentNode;
+    const redCross = createFailMark(event.point);
+    layer.appendChild(redCross);
+    setTimeout(() => layer.removeChild(redCross), 220);
 }

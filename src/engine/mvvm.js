@@ -78,7 +78,7 @@ function DomAction(target, action) {
     object.addEventListener('click', (click) => {
         click.stopPropagation();
         const point = {x: click.offsetX, y: click.offsetY};
-        const event = {target, action, div: object, point};
+        const event = {target, action, object, point};
         engine.emit(action, event);
     });
     return object;
