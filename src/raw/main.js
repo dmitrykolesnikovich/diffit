@@ -11,7 +11,7 @@ window.onload = function () {
     document.querySelector("#app").appendChild(div);
     context.root = div;
     window.onresize = () => resizeApplication(RATIO, PADDING);
-    engine.emit('showLevel', {levelId: 5});
+    engine.emit('showLevel', {levelId: 2});
 }
 
 function resizeApplication(ratio, padding) {

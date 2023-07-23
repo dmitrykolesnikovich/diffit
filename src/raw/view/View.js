@@ -64,7 +64,7 @@ function buildView(level) {
 
     imagesContainer.style.width = ((level.width < level.height ? 2*level.width : level.width) + 16) + 'px';
     imagesContainer.classList.remove('images-container--v');
-    if (level.width < level.height) elements.imagesContainer.classList.add('images-container--v');
+    if (level.width < level.height) imagesContainer.classList.add('images-container--v');
 
     h1.innerHTML = `Уровень: ${level.id}`;
 
