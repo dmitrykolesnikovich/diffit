@@ -1,3 +1,4 @@
+// IMPORTANT no dependency on PixiJS
 class MVVM {
 
     modelView = null;

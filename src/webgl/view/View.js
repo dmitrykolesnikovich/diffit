@@ -5,7 +5,7 @@ class View extends PIXI.Container {
     mistakesLabel;
 }
 
-function buildView(level, layout) {
+function buildView(level) {
     const view = new View();
 
     const mainView = view.addChild(new PIXI.Container());

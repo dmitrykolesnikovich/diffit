@@ -1,0 +1,202 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, height=device-height, width=device-width, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>test</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            color: #000;
+            overflow: hidden;
+            position: relative;
+            font-family: FilmotypeMajor;
+            font-size: 64px;
+        }
+        .loading {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 100vh;
+            overflow: hidden;
+            color: #fff;
+        }
+        .root {
+            position: absolute;
+            background: #fff;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: "FilmotypeMajor";
+            src: url("res/fonts/Filmotype_Major.otf") format("opentype");
+        }
+
+        .content-container {
+            transform-origin: left top;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .main-container--landscape .content-container {
+            flex-direction: row;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 64px;
+            padding: 0 64px;
+            margin-block-start: 64px;
+            margin-block-end: 64px;
+        }
+
+        .score-container {
+            text-align: right;
+            padding-right: 64px;
+            font-size: 48px;
+            margin-block-start: 64px;
+            margin-block-end: 64px;
+        }
+
+        .score-container div {
+            margin-bottom: .5em;
+        }
+
+        .score-success {
+            color: #0f0;
+        }
+
+        .score-fail {
+            color: #f00;
+        }
+
+        .container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .images-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .images-container--v {
+            flex-direction: row;
+        }
+
+        .images-container > .container:first-child {
+            margin-bottom: 16px;
+            margin-right: 0;
+        }
+
+        .images-container--v > .container:first-child {
+            margin-bottom: 0;
+            margin-right: 16px;
+        }
+
+        .mark {
+            position: absolute;
+            border-radius: 32px;
+            border: 16px solid white;
+            pointer-events: none;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 100%;
+            box-shadow: 0 0 16px #000;
+            text-shadow: 0 0 16px #000;
+        }
+
+
+        .mark.mark--success {
+            border-color: #0f0;
+        }
+
+        .mark.mark--fail {
+            border-color: #f00;
+            color: #f00;
+        }
+
+        .mark.mark--fail::after {
+            content: 'x';
+        }
+
+
+        .layerImage {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+
+        .slot {
+            position: absolute;
+            box-sizing: content-box;
+            pointer-events: none;
+        }
+
+        .message {
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 1024px;
+            height: 256px;
+            text-align: center;
+            line-height: 256px;
+            border: 16px groove green;
+            color: green;
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: 0 0 64px #000;
+            font-size: 84px;
+        }
+    </style>
+
+    <script src="https://pixijs.download/release/pixi.js"></script>
+
+    <script src="src/engine/mvvm.js"></script>
+
+    <script src="src/model/Level.js"></script>
+    <script src="src/model/Loader.js"></script>
+    <script src="src/model/Model.js"></script>
+    <script src="src/model/ModelView.js"></script>
+    <script src="src/model/Slot.js"></script>
+
+    <script src="src/raw/model/ModelView.js"></script>
+    <script src="src/raw/view/View.js"></script>
+    <script src="src/raw/view/ViewModel.js"></script>
+    <script src="src/raw/actions.js"></script>
+    <script src="src/raw/main.js"></script>
+</head>
+<body>
+    <div class="loading">Loading...</div>
+    <div id="app"></div>
+</body>
+</html>

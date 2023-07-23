@@ -1,0 +1,3 @@
+function initializeModelView({model, view}) {
+
+}
