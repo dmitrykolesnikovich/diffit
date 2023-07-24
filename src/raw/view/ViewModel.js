@@ -6,18 +6,20 @@ function ViewModel(modelView) {
 }
 
 function resetViewModel({model, view}) {
-    const {containerA, containerB, scoreLabel, mistakesLabel} = view;
+    const {foregroundA, foregroundB, scoreLabel, mistakesLabel} = view;
     context.root.replaceChildren();
+    foregroundA.replaceChildren();
+    foregroundB.replaceChildren();
 }
 
 function setupViewModel({model, view}) {
-    const {containerA, containerB, scoreSuccess, scoreFail} = view;
+    const {foregroundA, foregroundB, scoreSuccess, scoreFail} = view;
     context.root.appendChild(view);
 
     // success
     for (let slot of model.successSlots) {
-        containerA.appendChild(createSuccessMark(slot));
-        containerB.appendChild(createSuccessMark(slot));
+        foregroundA.appendChild(createSuccessMark(slot));
+        foregroundB.appendChild(createSuccessMark(slot));
     }
 
     // status

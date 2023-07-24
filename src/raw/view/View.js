@@ -7,6 +7,8 @@ function buildView(level) {
     const imagesContainer = document.createElement('div');
     const containerA = document.createElement('div');
     const containerB = document.createElement('div');
+    const foregroundA = document.createElement('div');
+    const foregroundB = document.createElement('div');
     const scoreContainer = document.createElement('div');
     const scoreSuccessDiv = document.createElement('div');
     const scoreFailDiv = document.createElement('div');
@@ -20,6 +22,8 @@ function buildView(level) {
     imagesContainer.classList.add('images-container');
     containerA.classList.add('container');
     containerB.classList.add('container');
+    foregroundA.classList.add('container');
+    foregroundB.classList.add('container');
     scoreContainer.classList.add('score-container');
     scoreSuccess.classList.add('score-success');
     scoreFail.classList.add('score-fail');
@@ -28,7 +32,9 @@ function buildView(level) {
     containerB.appendChild(imgB);
     contentContainer.appendChild(h1);
     imagesContainer.appendChild(containerA);
+    containerA.appendChild(foregroundA);
     imagesContainer.appendChild(containerB);
+    containerB.appendChild(foregroundB);
     contentContainer.appendChild(imagesContainer);
 
     scoreSuccessDiv.innerHTML = '<span>Отличий найдено: </span>';
@@ -70,6 +76,8 @@ function buildView(level) {
 
     contentContainer.containerA = containerA;
     contentContainer.containerB = containerB;
+    contentContainer.foregroundA = foregroundA;
+    contentContainer.foregroundB = foregroundB;
     contentContainer.scoreSuccess = scoreSuccess;
     contentContainer.scoreFail = scoreFail;
 
