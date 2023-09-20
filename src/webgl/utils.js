@@ -14,8 +14,8 @@ function resizeCanvas(canvas, ratio, padding) {
     const {width, height} = fitDimension(ratio, padding);
     canvas.style.width = `${width}px`
     canvas.style.height = `${height}px`
-    canvas.width = width * window.devicePixelRatio;
-    canvas.height = height * window.devicePixelRatio;
+    canvas.width = width * mainWindow.devicePixelRatio;
+    canvas.height = height * mainWindow.devicePixelRatio;
 
     // >> quickfix todo replace with grid layout
     const {model, view} = engine.modelView;
@@ -26,7 +26,7 @@ function resizeCanvas(canvas, ratio, padding) {
 }
 
 function fitDimension(ratio, padding = 0) {
-    let {innerWidth: w, innerHeight: h} = window;
+    let {innerWidth: w, innerHeight: h} = mainWindow;
     w -= 2 * padding;
     h -= 2 * padding;
     if (w > h * ratio) {

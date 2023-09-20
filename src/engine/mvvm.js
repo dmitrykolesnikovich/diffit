@@ -31,7 +31,7 @@ class MVVM {
         if (this.modelView != null) {
             // noinspection JSValidateTypes
             this._viewModel(this.modelView);
-            window.dispatchEvent(new Event('resize'));
+            mainWindow.dispatchEvent(new Event('resize'));
         }
     }
 

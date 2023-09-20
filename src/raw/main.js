@@ -2,7 +2,7 @@ const context = bindViewModel({
     root: null,
 });
 
-window.onload = function () {
+mainWindow.onload = function () {
     const PADDING = 16;
     const RATIO = 9.0 / 16.0;
 
@@ -10,13 +10,13 @@ window.onload = function () {
     div.classList.add('root');
     document.querySelector("#app").appendChild(div);
     context.root = div;
-    window.onresize = () => resizeApplication(RATIO, PADDING);
+    mainWindow.onresize = () => resizeApplication(RATIO, PADDING);
     engine.emit('showLevel', {levelId: 5});
 }
 
 function resizeApplication(ratio, padding) {
     function fitDimension(ratio, padding = 0) {
-        let {innerWidth: w, innerHeight: h} = window;
+        let {innerWidth: w, innerHeight: h} = mainWindow;
         w -= 2 * padding;
         h -= 2 * padding;
         if (w > h * ratio) {

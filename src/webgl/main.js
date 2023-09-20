@@ -3,7 +3,7 @@ const context = bindViewModel({
     root: null,
 });
 
-window.onload = function () {
+mainWindow.onload = function () {
     const PADDING = 16;
     const RATIO = 9.0 / 16.0;
 
@@ -13,14 +13,14 @@ window.onload = function () {
     context.app = new PIXI.Application({
         background: 'white',
         antialias: true,
-        resolution: window.devicePixelRatio || 1,
+        resolution: mainWindow.devicePixelRatio || 1,
         view: canvas,
         resizeTo: canvas,
         sharedTicker: true,
     });
     context.root = canvas;
-    window.onresize = () => resizeCanvas(canvas, RATIO, PADDING);
-    window.onorientationchange = () => resizeCanvas(canvas, RATIO, PADDING);
+    mainWindow.onresize = () => resizeCanvas(canvas, RATIO, PADDING);
+    mainWindow.onorientationchange = () => resizeCanvas(canvas, RATIO, PADDING);
 
     engine.emit('showLevel', {levelId: 5});
 }
